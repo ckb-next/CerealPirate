@@ -24,7 +24,24 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     actionsproperty.h \
+    advancedlightingsproperty_proxy.h \
+    aggregatedlightingsproperty_proxy.h \
+    anglesnappingproperty.h \
     baseproperty.h \
-    buttonresponseoptimizationproperty.h
+    basiclightingsproperty_proxy.h \
+    brightnessindicatorproprety_proxy.h \
+    buttonresponseoptimizationproperty.h \
+    dpiproperty_proxy.h \
+    gesturesproperty.h \
+    hardwaremetaproperty_proxy.h \
+    joystickperformanceproperty.h \
+    liftheightproperty.h \
+    macrorecordingproperty.h \
+    profileindicatorproperty.h \
+    sidelightingproperty.h \
+    systempointerproperty.h \
+    touchpadperformanceproperty.h \
+    winlockindicatorproprety_proxy.h \
+    winlockproperty.h
 
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"

@@ -10,6 +10,24 @@
 #include <cereal/types/list.hpp>
 #include "baseproperty.h"
 #include "buttonresponseoptimizationproperty.h"
+#include "liftheightproperty.h"
+#include "aggregatedlightingsproperty_proxy.h"
+#include "actionsproperty.h"
+#include "anglesnappingproperty.h"
+#include "basiclightingsproperty_proxy.h"
+#include "advancedlightingsproperty_proxy.h"
+#include "hardwaremetaproperty_proxy.h"
+#include "profileindicatorproperty.h"
+#include "dpiproperty_proxy.h"
+#include "systempointerproperty.h"
+#include "brightnessindicatorproprety_proxy.h"
+#include "winlockindicatorproprety_proxy.h"
+#include "winlockproperty.h"
+#include "sidelightingproperty.h"
+#include "macrorecordingproperty.h"
+#include "touchpadperformanceproperty.h"
+#include "joystickperformanceproperty.h"
+#include "gesturesproperty.h"
 
 // QString
 template <class Archive>
@@ -186,7 +204,9 @@ int main(int argc, char *argv[])
     std::ofstream os("/tmp/gradient_export.cueprofile");
     cereal::XMLOutputArchive aro(os);
 
-    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
+    /*profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
+    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
+    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));*/
     aro(profcont);
 
     return 0;
