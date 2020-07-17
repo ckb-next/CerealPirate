@@ -7,7 +7,7 @@
 #include <iostream>
 #include <QMap>
 #include <cereal/types/map.hpp>
-#include <cereal/types/list.hpp>
+#include <cereal/types/vector.hpp>
 #include "baseproperty.h"
 #include "buttonresponseoptimizationproperty.h"
 #include "liftheightproperty.h"
@@ -28,6 +28,18 @@
 #include "touchpadperformanceproperty.h"
 #include "joystickperformanceproperty.h"
 #include "gesturesproperty.h"
+#include "presetsproperty.h"
+#include "dolbyproperty.h"
+#include "indicatorbrightnessproperty.h"
+#include "sidetoneproperty.h"
+#include "batteryproperty.h"
+#include "microphoneproperty.h"
+#include "temperaturealertproperty.h"
+#include "osdproperty.h"
+#include "alldevicescoolingproperty.h"
+#include "lightinglinkproperty.h"
+#include "xdlprofileproperty.h"
+#include "coolingconfigurationproperty_proxy.h"
 
 // QString
 template <class Archive>
@@ -64,7 +76,7 @@ public:
     QString KeyboardHwLayout;
     QString KeyboardSwLayout;
     template <class Archive>
-    void serialize(Archive& ar, const std::uint32_t version)
+    void serialize(Archive& ar)
     {
         ar(CEREAL_NVP(CueVersion), CEREAL_NVP(ProfileVersion), CEREAL_NVP(KeyboardModel),
            CEREAL_NVP(MouseModel), CEREAL_NVP(HeadsetModel), CEREAL_NVP(MousePadModel),
@@ -77,7 +89,8 @@ public:
 class listCont
 {
 public:
-    std::list<std::unique_ptr<BaseProperty>> l;
+    listCont() {}
+    std::vector<std::unique_ptr<BaseProperty>> l;
     template <class Archive>
     void serialize(Archive& ar)
     {
@@ -197,17 +210,27 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     std::ifstream is("/tmp/gradient.cueprofile");
+    //std::ifstream is("/tmp/skunk.xml");
+   /* try
+    {*/
     cereal::XMLInputArchive ar(is);
 
     CUEProfileContainer profcont;
-    ar(profcont);
+    //ar(profcont);
     std::ofstream os("/tmp/gradient_export.cueprofile");
     cereal::XMLOutputArchive aro(os);
 
-    /*profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
+    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
-    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));*/
+    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));
+    CUEDevice cd;
+    dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<BaseProperty>();
     aro(profcont);
+    /*}
+    catch(const cereal::Exception& e)
+    {
+        std::cout << e.what() << std::endl;
+    }*/
 
     return 0;
 }

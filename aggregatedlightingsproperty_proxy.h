@@ -2,19 +2,21 @@
 #define AGGREGATEDLIGHTINGSPROPERTY_PROXY_H
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
+#include <cereal/types/map.hpp>
 #include <QString>
 #include "baseproperty.h"
+#include "cuedevice.h"
 
 class AggregatedLightingsProperty_Proxy : public BaseProperty
 {
 public:
     AggregatedLightingsProperty_Proxy() {}
-    QString value;
+    std::map<CUEDevice, std::unique_ptr<BaseProperty>, CUEDeviceComparator> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
 #warning "FIXME"
-       // ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(value));
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(properties));
     }
     void Dummy() {}
 };

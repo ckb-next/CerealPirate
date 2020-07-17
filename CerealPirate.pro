@@ -26,22 +26,35 @@ HEADERS += \
     actionsproperty.h \
     advancedlightingsproperty_proxy.h \
     aggregatedlightingsproperty_proxy.h \
+    alldevicescoolingproperty.h \
     anglesnappingproperty.h \
     baseproperty.h \
     basiclightingsproperty_proxy.h \
+    batteryproperty.h \
     brightnessindicatorproprety_proxy.h \
     buttonresponseoptimizationproperty.h \
+    coolingconfigurationproperty_proxy.h \
+    cuedevice.h \
+    dolbyproperty.h \
     dpiproperty_proxy.h \
     gesturesproperty.h \
     hardwaremetaproperty_proxy.h \
+    indicatorbrightnessproperty.h \
     joystickperformanceproperty.h \
     liftheightproperty.h \
+    lightinglinkproperty.h \
     macrorecordingproperty.h \
+    microphoneproperty.h \
+    osdproperty.h \
+    presetsproperty.h \
     profileindicatorproperty.h \
     sidelightingproperty.h \
+    sidetoneproperty.h \
     systempointerproperty.h \
+    temperaturealertproperty.h \
     touchpadperformanceproperty.h \
     winlockindicatorproprety_proxy.h \
-    winlockproperty.h
+    winlockproperty.h \
+    xdlprofileproperty.h
 
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
