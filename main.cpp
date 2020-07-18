@@ -1,3 +1,4 @@
+#include <clocale>
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/types/memory.hpp>
 #include <cereal/archives/xml.hpp>
@@ -9,7 +10,8 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
 #include "cueprofileclasses.h"
-#include "channelpropertiescontainerclass.h"
+#include "CUEAnimations/gradientlighting.h"
+#include "CUEAnimations/staticlighting.h"
 
 // QString
 template <class Archive>
@@ -178,7 +180,9 @@ CEREAL_CLASS_VERSION(CUEProfileContainer, 300)
 
 int main(int argc, char *argv[])
 {
+    QString oldLocale (setlocale(LC_NUMERIC, NULL));
     QCoreApplication a(argc, argv);
+    QString newLocale (setlocale(LC_NUMERIC, NULL));
     std::ifstream is("/tmp/gradient.cueprofile");
     //std::ifstream is("/tmp/skunk.xml");
    /* try
@@ -186,11 +190,14 @@ int main(int argc, char *argv[])
     cereal::XMLInputArchive ar(is);
 
     CUEProfileContainer profcont;
-    //ar(profcont);
+
+    setlocale(LC_NUMERIC, oldLocale.toUtf8());
+    ar(profcont);
+    setlocale(LC_NUMERIC, newLocale.toUtf8());
     std::ofstream os("/tmp/gradient_export.cueprofile");
     cereal::XMLOutputArchive aro(os);
 
-    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
+   /* profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));
     CUEDevice cd;
@@ -199,6 +206,15 @@ int main(int argc, char *argv[])
     ChannelPropertiesContainerClass* cpc = new ChannelPropertiesContainerClass;
     cpc->channelProperties.push_back(std::unique_ptr<ChannelPropertiesClass>(new ChannelPropertiesClass));
     dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<ChannelPropertiesContainerClass>(cpc);
+    ChannelPropertiesClass* meh = cpc->channelProperties[0].get();
+    AdvancedLightingLayer* all = new AdvancedLightingLayer;
+    all->enabled = true;
+    all->lighting = std::shared_ptr<CUEAnimationBase>(new GradientLighting);
+    all->lighting->brightness = 10;
+    CUEAnimationTransition t;
+    t.time = 0.49190938511326859;
+    (dynamic_cast<GradientLighting*>(all->lighting.get()))->transitions.push_back(t);
+    meh->layers.push_back(std::unique_ptr<AdvancedLightingLayer>(all));*/
     aro(profcont);
     /*}
     catch(const cereal::Exception& e)

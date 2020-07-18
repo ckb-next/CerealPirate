@@ -32,4 +32,6 @@
 #include "lightinglinkproperty.h"
 #include "xdlprofileproperty.h"
 #include "coolingconfigurationproperty_proxy.h"
+#include "channelpropertiescontainerclass.h"
+#include "advancedlightinglayer.h"
 #endif // CUEPROFILECLASSES_H

@@ -4,6 +4,7 @@
 #include <cereal/archives/xml.hpp>
 #include <QString>
 #include "channelpropertiesbase.h"
+#include "advancedlightinglayer.h"
 
 class ChannelPropertiesClass : public ChannelPropertiesBase
 {

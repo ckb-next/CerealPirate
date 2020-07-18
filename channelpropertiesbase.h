@@ -4,13 +4,12 @@
 #include <cereal/archives/xml.hpp>
 #include <QString>
 #include "baseproperty.h"
-
+#include "advancedlightinglayer.h"
 class ChannelPropertiesBase : public BaseProperty
 {
 public:
     ChannelPropertiesBase() {}
-#warning "FIXME random type here"
-    std::vector<std::unique_ptr<int>> layers;
+    std::vector<std::shared_ptr<CUEKeyBase>> layers;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

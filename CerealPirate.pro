@@ -23,7 +23,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    CUEAnimations/cueanimationwithtransitions.h \
+    CUEAnimations/gradientlighting.h \
+    CUEAnimations/staticlighting.h \
     actionsproperty.h \
+    advancedlightinglayer.h \
     advancedlightingsproperty_proxy.h \
     aggregatedlightingsproperty_proxy.h \
     alldevicescoolingproperty.h \
@@ -37,7 +41,10 @@ HEADERS += \
     channelpropertiesclass.h \
     channelpropertiescontainerclass.h \
     coolingconfigurationproperty_proxy.h \
+    CUEAnimations/cueanimationbase.h \
     cuedevice.h \
+    cueexecutionhints.h \
+    cuekeybase.h \
     cueprofileclasses.h \
     dolbyproperty.h \
     dpiproperty_proxy.h \
@@ -60,7 +67,6 @@ HEADERS += \
     winlockindicatorproprety_proxy.h \
     winlockproperty.h \
     xdlprofileproperty.h
-
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
-PRECOMPILED_HEADER = cueprofileclasses.h
+#PRECOMPILED_HEADER = cueprofileclasses.h
