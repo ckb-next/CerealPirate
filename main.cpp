@@ -8,38 +8,8 @@
 #include <QMap>
 #include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
-#include "baseproperty.h"
-#include "buttonresponseoptimizationproperty.h"
-#include "liftheightproperty.h"
-#include "aggregatedlightingsproperty_proxy.h"
-#include "actionsproperty.h"
-#include "anglesnappingproperty.h"
-#include "basiclightingsproperty_proxy.h"
-#include "advancedlightingsproperty_proxy.h"
-#include "hardwaremetaproperty_proxy.h"
-#include "profileindicatorproperty.h"
-#include "dpiproperty_proxy.h"
-#include "systempointerproperty.h"
-#include "brightnessindicatorproprety_proxy.h"
-#include "winlockindicatorproprety_proxy.h"
-#include "winlockproperty.h"
-#include "sidelightingproperty.h"
-#include "macrorecordingproperty.h"
-#include "touchpadperformanceproperty.h"
-#include "joystickperformanceproperty.h"
-#include "gesturesproperty.h"
-#include "presetsproperty.h"
-#include "dolbyproperty.h"
-#include "indicatorbrightnessproperty.h"
-#include "sidetoneproperty.h"
-#include "batteryproperty.h"
-#include "microphoneproperty.h"
-#include "temperaturealertproperty.h"
-#include "osdproperty.h"
-#include "alldevicescoolingproperty.h"
-#include "lightinglinkproperty.h"
-#include "xdlprofileproperty.h"
-#include "coolingconfigurationproperty_proxy.h"
+#include "cueprofileclasses.h"
+#include "channelpropertiescontainerclass.h"
 
 // QString
 template <class Archive>
@@ -224,7 +194,11 @@ int main(int argc, char *argv[])
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));
     CUEDevice cd;
-    dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<BaseProperty>();
+    cd.modelId.usbPid = 1234;
+    cd.modelId.usbVid = 4321;
+    ChannelPropertiesContainerClass* cpc = new ChannelPropertiesContainerClass;
+    cpc->channelProperties.push_back(std::unique_ptr<ChannelPropertiesClass>(new ChannelPropertiesClass));
+    dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<ChannelPropertiesContainerClass>(cpc);
     aro(profcont);
     /*}
     catch(const cereal::Exception& e)

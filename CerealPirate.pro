@@ -1,6 +1,6 @@
 QT -= gui
 
-CONFIG += c++11 console
+CONFIG += c++11 console precompile_header
 CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
@@ -33,8 +33,12 @@ HEADERS += \
     batteryproperty.h \
     brightnessindicatorproprety_proxy.h \
     buttonresponseoptimizationproperty.h \
+    channelpropertiesbase.h \
+    channelpropertiesclass.h \
+    channelpropertiescontainerclass.h \
     coolingconfigurationproperty_proxy.h \
     cuedevice.h \
+    cueprofileclasses.h \
     dolbyproperty.h \
     dpiproperty_proxy.h \
     gesturesproperty.h \
@@ -58,3 +62,5 @@ HEADERS += \
     xdlprofileproperty.h
 
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
+
+PRECOMPILED_HEADER = cueprofileclasses.h

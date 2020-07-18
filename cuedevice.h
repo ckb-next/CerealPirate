@@ -2,29 +2,36 @@
 #define CUEDEVICE_H
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
+
+class CUEDeviceVidPid
+{
+public:
+    CUEDeviceVidPid() {}
+    uint16_t usbVid;
+    uint16_t usbPid;
+    template <class Archive>
+    void serialize(Archive& ar, const std::uint32_t version)
+    {
+        ar(CEREAL_NVP(usbVid), CEREAL_NVP(usbPid));
+    }
+};
+CEREAL_CLASS_VERSION(CUEDeviceVidPid, 200)
+
 class CUEDevice
 {
 public:
     CUEDevice() {}
     QString deviceId;
-    class {
-    public:
-        uint16_t usbVid;
-        uint16_t usbPid;
-        template <class Archive>
-        void serialize(Archive& ar)
-        {
-            ar(CEREAL_NVP(usbVid), CEREAL_NVP(usbPid));
-        }
-    } modelId;
+    CUEDeviceVidPid modelId;
     QString hidCaps;
     QString deviceLightingType;
     template <class Archive>
-    void serialize(Archive& ar)
+    void serialize(Archive& ar, const std::uint32_t version)
     {
         ar(CEREAL_NVP(deviceId), CEREAL_NVP(modelId), CEREAL_NVP(hidCaps), CEREAL_NVP(deviceLightingType));
     }
 };
+#warning "Maybe add version?"
 CEREAL_CLASS_VERSION(CUEDevice, 303)
 
 class CUEDeviceComparator {

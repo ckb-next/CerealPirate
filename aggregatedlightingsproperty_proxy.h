@@ -6,12 +6,13 @@
 #include <QString>
 #include "baseproperty.h"
 #include "cuedevice.h"
+#include "channelpropertiescontainerclass.h"
 
 class AggregatedLightingsProperty_Proxy : public BaseProperty
 {
 public:
     AggregatedLightingsProperty_Proxy() {}
-    std::map<CUEDevice, std::unique_ptr<BaseProperty>, CUEDeviceComparator> properties;
+    std::map<CUEDevice, std::unique_ptr<ChannelPropertiesContainerClass>, CUEDeviceComparator> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
