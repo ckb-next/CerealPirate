@@ -10,8 +10,6 @@
 #include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
 #include "cueprofileclasses.h"
-#include "CUEAnimations/gradientlighting.h"
-#include "CUEAnimations/staticlighting.h"
 
 // QString
 template <class Archive>
@@ -183,7 +181,7 @@ int main(int argc, char *argv[])
     QString oldLocale (setlocale(LC_NUMERIC, NULL));
     QCoreApplication a(argc, argv);
     QString newLocale (setlocale(LC_NUMERIC, NULL));
-    std::ifstream is("/tmp/gradient.cueprofile");
+    std::ifstream is("/tmp/allanimations.cueprofile");
     //std::ifstream is("/tmp/skunk.xml");
    /* try
     {*/

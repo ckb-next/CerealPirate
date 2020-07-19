@@ -9,11 +9,15 @@ class ProfileIndicatorProperty : public BaseProperty
 {
 public:
     ProfileIndicatorProperty() {}
-    QString value;
+    QString m1Color;
+    QString m2Color;
+    QString m3Color;
+    QString profileIndicatorColor;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(m1Color),
+           CEREAL_NVP(m2Color), CEREAL_NVP(m3Color), CEREAL_NVP(profileIndicatorColor));
     }
     void Dummy() {}
 };

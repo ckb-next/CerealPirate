@@ -31,7 +31,6 @@ public:
         ar(CEREAL_NVP(deviceId), CEREAL_NVP(modelId), CEREAL_NVP(hidCaps), CEREAL_NVP(deviceLightingType));
     }
 };
-#warning "Maybe add version?"
 CEREAL_CLASS_VERSION(CUEDevice, 303)
 
 class CUEDeviceComparator {

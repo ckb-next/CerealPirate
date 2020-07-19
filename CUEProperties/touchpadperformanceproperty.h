@@ -9,11 +9,15 @@ class TouchpadPerformanceProperty : public BaseProperty
 {
 public:
     TouchpadPerformanceProperty() {}
-    QString value;
+    QString modeFLockOff;
+    QString modeFLockOn;
+    int pointerSpeed;
+    int tappingSpeed;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(modeFLockOff),
+           CEREAL_NVP(modeFLockOn), CEREAL_NVP(pointerSpeed), CEREAL_NVP(tappingSpeed));
     }
     void Dummy() {}
 };

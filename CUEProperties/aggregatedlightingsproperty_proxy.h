@@ -5,7 +5,7 @@
 #include <cereal/types/map.hpp>
 #include <QString>
 #include "baseproperty.h"
-#include "cuedevice.h"
+#include "../cuedevice.h"
 #include "channelpropertiescontainerclass.h"
 
 class AggregatedLightingsProperty_Proxy : public BaseProperty
@@ -16,7 +16,6 @@ public:
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
         ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(properties));
     }
     void Dummy() {}

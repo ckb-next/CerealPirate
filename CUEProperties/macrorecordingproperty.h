@@ -9,11 +9,13 @@ class MacroRecordingProperty : public BaseProperty
 {
 public:
     MacroRecordingProperty() {}
-    QString value;
+    QString enabledIndicatorColor;
+    QString disabledIndicatorColor;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(enabledIndicatorColor),
+           CEREAL_NVP(disabledIndicatorColor));
     }
     void Dummy() {}
 };

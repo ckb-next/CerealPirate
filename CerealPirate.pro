@@ -23,50 +23,64 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    CUEAnimations/blinklighting.h \
+    CUEAnimations/colorpulselighting.h \
+    CUEAnimations/colorshiftlighting.h \
+    CUEAnimations/colorwavelighting.h \
     CUEAnimations/cueanimationwithtransitions.h \
+    CUEAnimations/cuecolourclass.h \
+    CUEAnimations/frequencyvisualizerlighting.h \
     CUEAnimations/gradientlighting.h \
+    CUEAnimations/rainbowwavelighting.h \
+    CUEAnimations/rainlighting.h \
+    CUEAnimations/ripplelighting.h \
+    CUEAnimations/solidlighting.h \
+    CUEAnimations/spiralrainbowlighting.h \
     CUEAnimations/staticlighting.h \
-    actionsproperty.h \
+    CUEAnimations/typelighting.h \
+    CUEAnimations/visorlighting.h \
+    CUEAnimations/wavelighting.h \
+    CUEProperties/actionsproperty.h \
     advancedlightinglayer.h \
-    advancedlightingsproperty_proxy.h \
-    aggregatedlightingsproperty_proxy.h \
-    alldevicescoolingproperty.h \
-    anglesnappingproperty.h \
-    baseproperty.h \
-    basiclightingsproperty_proxy.h \
-    batteryproperty.h \
-    brightnessindicatorproprety_proxy.h \
-    buttonresponseoptimizationproperty.h \
-    channelpropertiesbase.h \
-    channelpropertiesclass.h \
-    channelpropertiescontainerclass.h \
-    coolingconfigurationproperty_proxy.h \
+    CUEProperties/advancedlightingsproperty_proxy.h \
+    CUEProperties/aggregatedlightingsproperty_proxy.h \
+    CUEProperties/alldevicescoolingproperty.h \
+    CUEProperties/anglesnappingproperty.h \
+    CUEProperties/baseproperty.h \
+    CUEProperties/basiclightingsproperty_proxy.h \
+    CUEProperties/batteryproperty.h \
+    CUEProperties/brightnessindicatorproperty_proxy.h \
+    CUEProperties/buttonresponseoptimizationproperty.h \
+    CUEProperties/channelpropertiesbase.h \
+    CUEProperties/channelpropertiesclass.h \
+    CUEProperties/channelpropertiescontainerclass.h \
+    CUEProperties/coolingconfigurationproperty_proxy.h \
     CUEAnimations/cueanimationbase.h \
     cuedevice.h \
     cueexecutionhints.h \
     cuekeybase.h \
     cueprofileclasses.h \
-    dolbyproperty.h \
-    dpiproperty_proxy.h \
-    gesturesproperty.h \
-    hardwaremetaproperty_proxy.h \
-    indicatorbrightnessproperty.h \
-    joystickperformanceproperty.h \
-    liftheightproperty.h \
-    lightinglinkproperty.h \
-    macrorecordingproperty.h \
-    microphoneproperty.h \
-    osdproperty.h \
-    presetsproperty.h \
-    profileindicatorproperty.h \
-    sidelightingproperty.h \
-    sidetoneproperty.h \
-    systempointerproperty.h \
-    temperaturealertproperty.h \
-    touchpadperformanceproperty.h \
-    winlockindicatorproprety_proxy.h \
-    winlockproperty.h \
-    xdlprofileproperty.h
+    CUEProperties/dolbyproperty.h \
+    CUEProperties/dpiproperty_proxy.h \
+    CUEProperties/gesturesproperty.h \
+    CUEProperties/hardwaremetaproperty_proxy.h \
+    CUEProperties/indicatorbrightnessproperty.h \
+    CUEProperties/joystickperformanceproperty.h \
+    CUEProperties/liftheightproperty.h \
+    CUEProperties/lightinglinkproperty.h \
+    CUEProperties/macrorecordingproperty.h \
+    CUEProperties/microphoneproperty.h \
+    CUEProperties/osdproperty.h \
+    CUEProperties/presetsproperty.h \
+    CUEProperties/profileindicatorproperty.h \
+    CUEProperties/sidelightingproperty.h \
+    CUEProperties/sidetoneproperty.h \
+    CUEProperties/systempointerproperty.h \
+    CUEProperties/temperaturealertproperty.h \
+    CUEProperties/touchpadperformanceproperty.h \
+    CUEProperties/winlockindicatorproperty_proxy.h \
+    CUEProperties/winlockproperty.h \
+    CUEProperties/xdlprofileproperty.h
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
 #PRECOMPILED_HEADER = cueprofileclasses.h

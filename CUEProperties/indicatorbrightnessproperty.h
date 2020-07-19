@@ -9,11 +9,11 @@ class IndicatorBrightnessProperty : public BaseProperty
 {
 public:
     IndicatorBrightnessProperty() {}
-    QString value;
+    int IndicatorBrightness;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(IndicatorBrightness));
     }
     void Dummy() {}
 };
