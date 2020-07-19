@@ -1,0 +1,4 @@
+#ifndef BASEBEHAVIOUR_H
+#define BASEBEHAVIOUR_H
+
+#endif // BASEBEHAVIOUR_H
