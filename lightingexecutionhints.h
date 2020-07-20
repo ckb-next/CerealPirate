@@ -1,13 +1,12 @@
-#ifndef CUEEXECUTIONHINTS_H
-#define CUEEXECUTIONHINTS_H
+#ifndef LightingExecutionHints_H
+#define LightingExecutionHints_H
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
 #include <QString>
-#warning "These execution hints are specific to something. Categorise them"
-class CUEExecutionHints
+class LightingExecutionHints
 {
 public:
-    CUEExecutionHints() {}
+    LightingExecutionHints() {}
     bool startOnKeyPress;
     bool startWithProfile;
     bool stopOnKeyPress;
@@ -21,5 +20,5 @@ public:
            CEREAL_NVP(stopOnKeyRelease), CEREAL_NVP(stopAfterTimes), CEREAL_NVP(playOption));
     }
 };
-CEREAL_CLASS_VERSION(CUEExecutionHints, 200)
-#endif // CUEEXECUTIONHINTS_H
+CEREAL_CLASS_VERSION(LightingExecutionHints, 200)
+#endif // LightingExecutionHints_H

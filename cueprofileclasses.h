@@ -38,6 +38,8 @@
 
 // Lighting-related
 #include "advancedlightinglayer.h"
+#include "basiclightinglayer.h"
+
 // Animations
 #include "CUEAnimations/gradientlighting.h"
 #include "CUEAnimations/staticlighting.h"
@@ -66,6 +68,7 @@
 #include "CUEActions/dolbystatechangeaction.h"
 #include "CUEActions/micmuteaction.h"
 #include "CUEActions/sidetonemuteaction.h"
+#include "CUEActions/gestureaction.h"
 
 // Behaviours
 #include "CUEBehaviours/directiondpibehavior.h"

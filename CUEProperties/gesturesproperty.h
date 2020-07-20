@@ -4,16 +4,17 @@
 #include <cereal/archives/xml.hpp>
 #include <QString>
 #include "baseproperty.h"
+#include "../CUEActions/gestureaction.h"
 
 class GesturesProperty : public BaseProperty
 {
 public:
     GesturesProperty() {}
-    QString value;
+    std::map<int, std::pair<QString, std::shared_ptr<BaseAction>>> gestures;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(gestures));
     }
     void Dummy() {}
 };

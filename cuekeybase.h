@@ -3,7 +3,7 @@
 #include <QString>
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
-#include "cueexecutionhints.h"
+#include "lightingexecutionhints.h"
 
 class CUEKeyBase
 {
@@ -12,7 +12,7 @@ public:
     QString name;
     std::vector<QString> keys;
     bool enabled;
-    CUEExecutionHints executionHints;
+    LightingExecutionHints executionHints;
     QString option;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

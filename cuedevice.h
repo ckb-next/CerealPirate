@@ -8,8 +8,9 @@ class CUEDeviceVidPid
 {
 public:
     CUEDeviceVidPid() {}
-    uint16_t usbVid;
-    uint16_t usbPid;
+    // Negative Vids/Pids are used
+    int32_t usbVid;
+    int32_t usbPid;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

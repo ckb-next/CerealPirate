@@ -9,11 +9,15 @@ class OSDProperty : public BaseProperty
 {
 public:
     OSDProperty() {}
-    QString value;
+#warning "FIXME: Find the right data types for all the values"
+    int profile;
+    int dpi;
+    int timer;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(profile),
+           CEREAL_NVP(dpi), CEREAL_NVP(timer));
     }
     void Dummy() {}
 };

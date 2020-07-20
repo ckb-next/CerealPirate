@@ -9,11 +9,14 @@ class AllDevicesCoolingProperty : public BaseProperty
 {
 public:
     AllDevicesCoolingProperty() {}
-    QString value;
+    bool enabled;
+    int fixedPercents;
+    int activeMode;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(enabled),
+           CEREAL_NVP(fixedPercents), CEREAL_NVP(activeMode));
     }
     void Dummy() {}
 };

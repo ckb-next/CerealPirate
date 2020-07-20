@@ -17,7 +17,7 @@ public:
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)));
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<ChannelPropertiesBase>(this)));
     }
     void Dummy() {}
 };

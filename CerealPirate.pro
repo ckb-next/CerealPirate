@@ -28,6 +28,7 @@ HEADERS += \
     CUEActions/dolbystatechangeaction.h \
     CUEActions/dpiaction.h \
     CUEActions/eqpresetswitchingaction.h \
+    CUEActions/gestureaction.h \
     CUEActions/keyremapaction.h \
     CUEActions/macrorecordingaction.h \
     CUEActions/micmuteaction.h \
@@ -71,8 +72,9 @@ HEADERS += \
     CUEProperties/channelpropertiescontainerclass.h \
     CUEProperties/coolingconfigurationproperty_proxy.h \
     CUEAnimations/cueanimationbase.h \
+    basiclightinglayer.h \
+    basiclightingparams.h \
     cuedevice.h \
-    cueexecutionhints.h \
     cuekeybase.h \
     cueprofileclasses.h \
     CUEProperties/dolbyproperty.h \
@@ -96,7 +98,8 @@ HEADERS += \
     CUEProperties/winlockindicatorproperty_proxy.h \
     CUEProperties/winlockproperty.h \
     CUEProperties/xdlprofileproperty.h \
-    cuerepeatoptions.h
+    cuerepeatoptions.h \
+    lightingexecutionhints.h
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
 #PRECOMPILED_HEADER = cueprofileclasses.h
