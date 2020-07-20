@@ -78,5 +78,11 @@
 #include "CUECooling/asetekcoolingconfiguration.h"
 #include "CUECooling/psucoolingconfiguration.h"
 #include "CUECooling/lightingnodecoolingconfiguration.h"
+#include "CUECooling/coolingconfigurationbase.h"
+#include "CUECooling/coolingconfigurationstoragebase.h"
+#include "CUECooling/coolingconfigurationstoragebasebase.h"
+#include "CUECooling/asetekcoolingconfigurationstorage.h"
+#include "CUECooling/lightingnodeconfigurationstorage.h"
+#include "CUECooling/psucoolingconfigurationstorage.h"
 
 #endif // CUEPROFILECLASSES_H

@@ -119,7 +119,7 @@ public:
     }
 
 };
-CEREAL_CLASS_VERSION(CUEprofile, 300)
+CEREAL_CLASS_VERSION(CUEprofile, 301)
 
 // <dpiMode>
 class CUEdpiDummyBase
@@ -205,11 +205,12 @@ public:
     CUEprofile profile;
     CUEdpiMode dpiMode;
     CUEdpiModeAdditional dpiModeAdditional;
+    std::map<CUEDeviceNoCapsNoCap, std::shared_ptr<CoolingConfigurationStorageBase>, CUEDeviceNoCapsNoCapComparator> coolingModes;
 
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-        ar(CEREAL_NVP(profile), CEREAL_NVP(dpiMode), CEREAL_NVP(dpiModeAdditional));
+        ar(CEREAL_NVP(profile), CEREAL_NVP(dpiMode), CEREAL_NVP(dpiModeAdditional), CEREAL_NVP(coolingModes));
     }
 
 };
@@ -248,6 +249,7 @@ int main(int argc, char *argv[])
     t.time = 0.49190938511326859;
     (dynamic_cast<GradientLighting*>(all->lighting.get()))->transitions.push_back(t);
     meh->layers.push_back(std::unique_ptr<AdvancedLightingLayer>(all));*/
+
     {
         std::ofstream os("/tmp/gradient_export.cueprofile");
         cereal::XMLOutputArchive aro(os);
@@ -261,16 +263,11 @@ int main(int argc, char *argv[])
         cereal::XMLInputArchive ar2(is2);
         ar2(profcont2);
     }
-    // Manually sort the device entries
-    // This is only done to be able to compare the resulting XML
-    // Note: doesn't work becaue of unique_ptr
     {
         std::ofstream os("/tmp/gradient_export.cueprofile");
         cereal::XMLOutputArchive aro(os);
         aro(profcont2);
     }
-
-
 
     /*}
     catch(const cereal::Exception& e)

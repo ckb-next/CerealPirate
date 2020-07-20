@@ -85,4 +85,38 @@ public:
     }
 };
 
+// FIXME: Not a great name
+class CUEDeviceNoCapsNoCap
+{
+public:
+    CUEDeviceNoCapsNoCap() {}
+    QString deviceId;
+    CUEDeviceVidPid vidPid;
+    template <class Archive>
+    void serialize(Archive& ar, const std::uint32_t version)
+    {
+        ar(CEREAL_NVP(deviceId), CEREAL_NVP(vidPid));
+    }
+};
+CEREAL_CLASS_VERSION(CUEDeviceNoCapsNoCap, 300)
+
+static std::map<QString, int> coolingcmpmap = {
+    {"DEMO_COMMANDER_PRO_DEVICE", 0},
+    {"DEMO_PSU_DEVICE", 1},
+    {"DEMO_LIQUID_COOLER_DEVICE", 2},
+};
+
+class CUEDeviceNoCapsNoCapComparator
+{
+public:
+    bool operator()(const CUEDeviceNoCapsNoCap& d1, const CUEDeviceNoCapsNoCap& d2)
+    {
+        // In case we don't have the value in the list
+        if((coolingcmpmap.count(d1.deviceId) && coolingcmpmap.count(d2.deviceId)))
+            return coolingcmpmap[d1.deviceId] < coolingcmpmap[d2.deviceId];
+
+        return (d1.vidPid.usbPid + d1.vidPid.usbVid > d2.vidPid.usbPid + d2.vidPid.usbVid);
+    }
+};
+
 #endif // CUEDEVICE_H

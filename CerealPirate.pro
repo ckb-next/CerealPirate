@@ -57,9 +57,14 @@ HEADERS += \
     CUEBehaviours/directiondpibehavior.h \
     CUEBehaviours/sniperdpibehavior.h \
     CUECooling/asetekcoolingconfiguration.h \
+    CUECooling/asetekcoolingconfigurationstorage.h \
     CUECooling/coolingconfigurationbase.h \
+    CUECooling/coolingconfigurationstoragebase.h \
+    CUECooling/coolingconfigurationstoragebasebase.h \
+    CUECooling/lightingnodeconfigurationstorage.h \
     CUECooling/lightingnodecoolingconfiguration.h \
     CUECooling/psucoolingconfiguration.h \
+    CUECooling/psucoolingconfigurationstorage.h \
     CUEProperties/actionsproperty.h \
     advancedlightinglayer.h \
     CUEProperties/advancedlightingsproperty_proxy.h \
@@ -106,4 +111,4 @@ HEADERS += \
     lightingexecutionhints.h
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
-#PRECOMPILED_HEADER = cueprofileclasses.h
+PRECOMPILED_HEADER = cueprofileclasses.h
