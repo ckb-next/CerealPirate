@@ -2,18 +2,17 @@
 #define DolbyProperty_H
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
-#include <QString>
 #include "baseproperty.h"
 
 class DolbyProperty : public BaseProperty
 {
 public:
     DolbyProperty() {}
-    QString value;
+    bool enabled;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(enabled));
     }
     void Dummy() {}
 };

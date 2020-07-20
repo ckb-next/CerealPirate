@@ -1,19 +1,25 @@
 #ifndef ACTIONSPROPERTY_H
 #define ACTIONSPROPERTY_H
+#include <cereal/types/utility.hpp>
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
 #include <QString>
 #include "baseproperty.h"
+#include "CUEActions/baseaction.h"
+
+typedef std::pair<std::shared_ptr<BaseAction>, std::pair<QString, QString>> action_t;
 
 class ActionsProperty : public BaseProperty
 {
 public:
     ActionsProperty() {}
-    QString value;
+    std::vector<action_t> actions;
+    std::vector<action_t> default_actions;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(actions),
+           CEREAL_NVP(default_actions));
     }
     void Dummy() {}
 };

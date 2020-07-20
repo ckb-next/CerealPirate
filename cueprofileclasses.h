@@ -55,4 +55,20 @@
 #include "CUEAnimations/rainbowwavelighting.h"
 #include "CUEAnimations/spiralrainbowlighting.h"
 
+// Actions
+#include "CUEActions/dpiaction.h"
+#include "CUEActions/profileswitchingaction.h"
+#include "CUEActions/keyremapaction.h"
+#include "CUEActions/winlockaction.h"
+#include "CUEActions/brightnessaction.h"
+#include "CUEActions/macrorecordingaction.h"
+#include "CUEActions/eqpresetswitchingaction.h"
+#include "CUEActions/dolbystatechangeaction.h"
+#include "CUEActions/micmuteaction.h"
+#include "CUEActions/sidetonemuteaction.h"
+
+// Behaviours
+#include "CUEBehaviours/directiondpibehavior.h"
+#include "CUEBehaviours/sniperdpibehavior.h"
+
 #endif // CUEPROFILECLASSES_H

@@ -6,6 +6,7 @@
 class BaseProperty
 {
 public:
+    BaseProperty() {}
     virtual void Dummy() = 0;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

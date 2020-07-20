@@ -13,7 +13,7 @@ public:
 #warning "What type is the vector?"
     std::vector<int> keyStroke;
     bool holdingKeyEnabled;
-    bool holdingKeyType;
+    QString holdingKeyType;
     int holdingKeyOnPressInterval;
     QString sniperSwitchMode;
     template <class Archive>

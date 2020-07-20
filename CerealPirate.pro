@@ -23,6 +23,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    CUEActions/baseaction.h \
+    CUEActions/brightnessaction.h \
+    CUEActions/dolbystatechangeaction.h \
+    CUEActions/dpiaction.h \
+    CUEActions/eqpresetswitchingaction.h \
+    CUEActions/keyremapaction.h \
+    CUEActions/macrorecordingaction.h \
+    CUEActions/micmuteaction.h \
+    CUEActions/profileswitchingaction.h \
+    CUEActions/sidetonemuteaction.h \
+    CUEActions/winlockaction.h \
     CUEAnimations/blinklighting.h \
     CUEAnimations/colorpulselighting.h \
     CUEAnimations/colorshiftlighting.h \
@@ -40,6 +51,10 @@ HEADERS += \
     CUEAnimations/typelighting.h \
     CUEAnimations/visorlighting.h \
     CUEAnimations/wavelighting.h \
+    CUEBehaviours/basebehaviour.h \
+    CUEActions/actionexecutionhints.h \
+    CUEBehaviours/directiondpibehavior.h \
+    CUEBehaviours/sniperdpibehavior.h \
     CUEProperties/actionsproperty.h \
     advancedlightinglayer.h \
     CUEProperties/advancedlightingsproperty_proxy.h \
@@ -80,7 +95,8 @@ HEADERS += \
     CUEProperties/touchpadperformanceproperty.h \
     CUEProperties/winlockindicatorproperty_proxy.h \
     CUEProperties/winlockproperty.h \
-    CUEProperties/xdlprofileproperty.h
+    CUEProperties/xdlprofileproperty.h \
+    cuerepeatoptions.h
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
 #PRECOMPILED_HEADER = cueprofileclasses.h

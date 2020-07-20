@@ -3,6 +3,7 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
 #include <QString>
+#warning "These execution hints are specific to something. Categorise them"
 class CUEExecutionHints
 {
 public:

@@ -2,18 +2,19 @@
 #define SidetoneProperty_H
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
-#include <QString>
 #include "baseproperty.h"
 
 class SidetoneProperty : public BaseProperty
 {
 public:
     SidetoneProperty() {}
-    QString value;
+    bool muted;
+    int level;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(muted),
+           CEREAL_NVP(level));
     }
     void Dummy() {}
 };

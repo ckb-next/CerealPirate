@@ -6,8 +6,6 @@
 #include <QCoreApplication>
 #include <QString>
 #include <iostream>
-#include <QMap>
-#include <cereal/types/map.hpp>
 #include <cereal/types/vector.hpp>
 #include "cueprofileclasses.h"
 
@@ -68,6 +66,28 @@ public:
     }
 };
 
+static std::map<QString, int> cmpmap = {
+    {"Mouse", 0},
+    {"Keyboard", 1},
+    {"Headset", 2},
+    {"MouseMat", 3},
+    {"HeadsetStand", 4},
+    {"DRAM", 5},
+    {"Profile", 6},
+    {"LiquidColler", 7},
+    {"PSU", 8},
+    {"LightingNode", 9},
+};
+class CUEprofileKeyComparator
+{
+public:
+    CUEprofileKeyComparator() {}
+    bool operator() (const QString& a, const QString& b)
+    {
+        return cmpmap[a] < cmpmap[b];
+    }
+};
+
 class CUEprofile
 {
 public:
@@ -80,7 +100,9 @@ public:
     bool blurBackgroundImage;
     bool tabsTransparencyEnabled;
     int tabsTransparency; // FIXME maybe not int
-    std::map<QString, listCont> properties;
+    //std::unordered_map<std::string, listCont> properties;
+    //std::unordered_map<QString, listCont> properties;
+    std::map<QString, listCont, CUEprofileKeyComparator> properties;
     bool isHardware;
     CUERGBShareMeta RGBShareMeta;
 
@@ -181,19 +203,15 @@ int main(int argc, char *argv[])
     QString oldLocale (setlocale(LC_NUMERIC, NULL));
     QCoreApplication a(argc, argv);
     QString newLocale (setlocale(LC_NUMERIC, NULL));
-    std::ifstream is("/tmp/allanimations.cueprofile");
-    //std::ifstream is("/tmp/skunk.xml");
+    setlocale(LC_NUMERIC, oldLocale.toUtf8());
+    std::ifstream is("/tmp/basic.cueprofile");
    /* try
     {*/
     cereal::XMLInputArchive ar(is);
 
     CUEProfileContainer profcont;
 
-    setlocale(LC_NUMERIC, oldLocale.toUtf8());
     ar(profcont);
-    setlocale(LC_NUMERIC, newLocale.toUtf8());
-    std::ofstream os("/tmp/gradient_export.cueprofile");
-    cereal::XMLOutputArchive aro(os);
 
    /* profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
@@ -213,12 +231,37 @@ int main(int argc, char *argv[])
     t.time = 0.49190938511326859;
     (dynamic_cast<GradientLighting*>(all->lighting.get()))->transitions.push_back(t);
     meh->layers.push_back(std::unique_ptr<AdvancedLightingLayer>(all));*/
-    aro(profcont);
+    {
+        std::ofstream os("/tmp/gradient_export.cueprofile");
+        cereal::XMLOutputArchive aro(os);
+        aro(profcont);
+    }
+
+    CUEProfileContainer profcont2;
+    // Do this so that the elements in the XML are swapped back
+    {
+        std::ifstream is2("/tmp/gradient_export.cueprofile");
+        cereal::XMLInputArchive ar2(is2);
+        ar2(profcont2);
+    }
+    // Manually sort the device entries
+    // This is only done to be able to compare the resulting XML
+    // Note: doesn't work becaue of unique_ptr
+    {
+        std::ofstream os("/tmp/gradient_export.cueprofile");
+        cereal::XMLOutputArchive aro(os);
+        aro(profcont2);
+    }
+
+
+
     /*}
     catch(const cereal::Exception& e)
     {
         std::cout << e.what() << std::endl;
     }*/
+
+    setlocale(LC_NUMERIC, newLocale.toUtf8());
 
     return 0;
 }

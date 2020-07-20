@@ -20,7 +20,7 @@ public:
     }
     void Dummy() {}
 };
-CEREAL_CLASS_VERSION(WaveLighting, 300)
+CEREAL_CLASS_VERSION(WaveLighting, 201)
 CEREAL_REGISTER_TYPE(WaveLighting)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(CUEAnimationBase, WaveLighting)
 

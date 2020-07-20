@@ -18,7 +18,7 @@ public:
     void Dummy() {}
 };
 
-CEREAL_CLASS_VERSION(DpiAction, 301)
+CEREAL_CLASS_VERSION(DpiAction, 200)
 CEREAL_REGISTER_TYPE(DpiAction)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseAction, DpiAction)
 #endif // DPIACTION_H

@@ -5,15 +5,32 @@
 #include <QString>
 #include "baseproperty.h"
 
+class BrightnessIndicatorProperty : public BaseProperty
+{
+public:
+    BrightnessIndicatorProperty() {}
+    QString indicatorColor;
+    template <class Archive>
+    void serialize(Archive& ar, const std::uint32_t version)
+    {
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(indicatorColor));
+    }
+    void Dummy() {}
+};
+
+CEREAL_CLASS_VERSION(BrightnessIndicatorProperty, 200)
+CEREAL_REGISTER_TYPE(BrightnessIndicatorProperty)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, BrightnessIndicatorProperty)
+
 class BrightnessIndicatorProperty_Proxy : public BaseProperty
 {
 public:
     BrightnessIndicatorProperty_Proxy() {}
-    QString value;
+    std::unordered_map<bool, std::unique_ptr<BrightnessIndicatorProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
-#warning "FIXME"
+        ar(cereal::make_nvp("base", cereal::virtual_base_class<BaseProperty>(this)), CEREAL_NVP(properties));
     }
     void Dummy() {}
 };
