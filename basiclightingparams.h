@@ -16,6 +16,7 @@ public:
     int direction;
     int duration;
     uint8_t opacity;
+    QString selectedColor;
     std::pair<QString, QString> alternatingColors;
     int equaliserAnimation;
     int equaliserPattern;
@@ -34,7 +35,7 @@ public:
     void serialize(Archive& ar, const std::uint32_t version)
     {
         ar(CEREAL_NVP(speed), CEREAL_NVP(color), CEREAL_NVP(direction), CEREAL_NVP(duration), CEREAL_NVP(opacity),
-           CEREAL_NVP(alternatingColors), CEREAL_NVP(equaliserAnimation), CEREAL_NVP(equaliserPattern),
+           CEREAL_NVP(selectedColor), CEREAL_NVP(alternatingColors), CEREAL_NVP(equaliserAnimation), CEREAL_NVP(equaliserPattern),
            CEREAL_NVP(temperatureWarningColor), CEREAL_NVP(warningTemperature), CEREAL_NVP(temperatureWarningEnabled),
            CEREAL_NVP(temperatureBasedColors), CEREAL_NVP(cycledColors), CEREAL_NVP(groupDelay), CEREAL_NVP(dramSpeed),
            CEREAL_NVP(colorArray), CEREAL_NVP(sensorId));

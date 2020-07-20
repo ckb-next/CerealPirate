@@ -74,4 +74,9 @@
 #include "CUEBehaviours/directiondpibehavior.h"
 #include "CUEBehaviours/sniperdpibehavior.h"
 
+// Cooling
+#include "CUECooling/asetekcoolingconfiguration.h"
+#include "CUECooling/psucoolingconfiguration.h"
+#include "CUECooling/lightingnodecoolingconfiguration.h"
+
 #endif // CUEPROFILECLASSES_H

@@ -13,7 +13,7 @@ public:
     QString effect;
     std::map<QString, BasicLightingParams> params;
     template <class Archive>
-    void serialize(Archive& ar)
+    void serialize(Archive& ar, const std::uint32_t version)
     {
         ar(cereal::make_nvp("base", cereal::virtual_base_class<CUEKeyBase>(this)), CEREAL_NVP(effect),
            CEREAL_NVP(params));
@@ -21,6 +21,7 @@ public:
     void Dummy() {}
 };
 
+CEREAL_CLASS_VERSION(BasicLightingLayer, 200)
 CEREAL_REGISTER_TYPE(BasicLightingLayer)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(CUEKeyBase, BasicLightingLayer)
 

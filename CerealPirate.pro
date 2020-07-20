@@ -56,6 +56,10 @@ HEADERS += \
     CUEActions/actionexecutionhints.h \
     CUEBehaviours/directiondpibehavior.h \
     CUEBehaviours/sniperdpibehavior.h \
+    CUECooling/asetekcoolingconfiguration.h \
+    CUECooling/coolingconfigurationbase.h \
+    CUECooling/lightingnodecoolingconfiguration.h \
+    CUECooling/psucoolingconfiguration.h \
     CUEProperties/actionsproperty.h \
     advancedlightinglayer.h \
     CUEProperties/advancedlightingsproperty_proxy.h \

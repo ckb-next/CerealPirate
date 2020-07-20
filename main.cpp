@@ -84,7 +84,10 @@ public:
     CUEprofileKeyComparator() {}
     bool operator() (const QString& a, const QString& b)
     {
-        return cmpmap[a] < cmpmap[b];
+        // In case we don't have the value in the list
+        if(cmpmap.count(a) && cmpmap.count(b))
+            return cmpmap[a] < cmpmap[b];
+        return a < b;
     }
 };
 
@@ -119,7 +122,18 @@ public:
 CEREAL_CLASS_VERSION(CUEprofile, 300)
 
 // <dpiMode>
-class CUEdpiSettings
+class CUEdpiDummyBase
+{
+public:
+    CUEdpiDummyBase() {}
+    virtual void Dummy() = 0;
+    template <class Archive>
+    void serialize(Archive& ar)
+    {
+    }
+};
+
+class CUEdpiSettings : public CUEdpiDummyBase
 {
 public:
     CUEdpiSettings() {}
@@ -134,8 +148,11 @@ public:
         ar(CEREAL_NVP(enabled), CEREAL_NVP(independent), CEREAL_NVP(dpiX),
            CEREAL_NVP(dpiY), CEREAL_NVP(color));
     }
+    void Dummy() {}
 };
 CEREAL_CLASS_VERSION(CUEdpiSettings, 201)
+CEREAL_REGISTER_TYPE(CUEdpiSettings)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(CUEdpiDummyBase, CUEdpiSettings)
 
 class CUEdpiMode
 {

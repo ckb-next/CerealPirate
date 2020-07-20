@@ -19,6 +19,16 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDeviceVidPid, 200)
 
+static std::map<QString, int> devcmpmap = {
+    {"StandardRgb", 0},
+    {"StandardSingleColor", 1},
+    {"ZoneRgb", 2},
+    {"RestrictedWireless", 3},
+    {"DramSingleColor", 4},
+    {"Undefined", 5},
+    {"DramRgb", 6},
+};
+
 class CUEDevice
 {
 public:
@@ -35,12 +45,12 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDevice, 303)
 
-class CUEDeviceComparator {
+class CUEDeviceComparator
+{
 public:
     bool operator()(const CUEDevice& d1, const CUEDevice& d2)
     {
-        // This may as well be completely wrong
-        return (d1.deviceId == d2.deviceId) | (d1.modelId.usbPid + d1.modelId.usbVid < d2.modelId.usbPid + d2.modelId.usbVid)
+        return (d1.deviceId == d2.deviceId) | (d1.modelId.usbPid + d1.modelId.usbVid > d2.modelId.usbPid + d2.modelId.usbVid)
                 | (d1.hidCaps == d2.hidCaps) | (d1.deviceLightingType == d2.deviceLightingType);
     }
 };
@@ -61,13 +71,17 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDeviceNoCaps, 301)
 
-class CUEDeviceNoCapsComparator {
+class CUEDeviceNoCapsComparator
+{
 public:
     bool operator()(const CUEDeviceNoCaps& d1, const CUEDeviceNoCaps& d2)
     {
-        // Possibly wrong, same as other comparator
-        return (d1.deviceId == d2.deviceId) | (d1.modelId.usbPid + d1.modelId.usbVid < d2.modelId.usbPid + d2.modelId.usbVid)
-                | (d1.capability == d2.capability);
+        // In case we don't have the value in the list
+        if((devcmpmap.count(d1.capability) && devcmpmap.count(d2.capability)))
+            return devcmpmap[d1.capability] < devcmpmap[d2.capability];
+
+        return (d1.deviceId == d2.deviceId) | (d1.capability < d2.capability)
+                | (d1.modelId.usbPid + d1.modelId.usbVid > d2.modelId.usbPid + d2.modelId.usbVid);
     }
 };
 
