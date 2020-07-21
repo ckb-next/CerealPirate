@@ -56,6 +56,9 @@
 #include "CUEAnimations/colorshiftlighting.h"
 #include "CUEAnimations/rainbowwavelighting.h"
 #include "CUEAnimations/spiralrainbowlighting.h"
+#include "CUEAnimations/rainbowlighting.h"
+#include "CUEAnimations/singlecolorpulselighting.h"
+#include "CUEAnimations/singlecolorvisorlighting.h"
 
 // Actions
 #include "CUEActions/dpiaction.h"

@@ -28,8 +28,7 @@ public:
     uint32_t cycledColors[4];
     int groupDelay;
     int dramSpeed;
-    // FIXME: find the right data type for colorArray
-    std::vector<CUEColourClass> colorArray;
+    std::vector<QString> colorArray;
     QString sensorId;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

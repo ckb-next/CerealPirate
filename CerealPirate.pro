@@ -43,9 +43,12 @@ HEADERS += \
     CUEAnimations/cuecolourclass.h \
     CUEAnimations/frequencyvisualizerlighting.h \
     CUEAnimations/gradientlighting.h \
+    CUEAnimations/rainbowlighting.h \
     CUEAnimations/rainbowwavelighting.h \
     CUEAnimations/rainlighting.h \
     CUEAnimations/ripplelighting.h \
+    CUEAnimations/singlecolorpulselighting.h \
+    CUEAnimations/singlecolorvisorlighting.h \
     CUEAnimations/solidlighting.h \
     CUEAnimations/spiralrainbowlighting.h \
     CUEAnimations/staticlighting.h \

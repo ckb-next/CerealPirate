@@ -222,7 +222,10 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     QString newLocale (setlocale(LC_NUMERIC, NULL));
     setlocale(LC_NUMERIC, oldLocale.toUtf8());
-    std::ifstream is("/tmp/basic.cueprofile");
+    const char* file = "/tmp/basic.cueprofile";
+    if(argc == 2)
+        file = argv[1];
+    std::ifstream is(file);
    /* try
     {*/
     cereal::XMLInputArchive ar(is);
