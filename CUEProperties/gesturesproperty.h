@@ -9,7 +9,12 @@
 class GesturesProperty : public BaseProperty
 {
 public:
-    GesturesProperty() {}
+    GesturesProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created GesturesProperty" << std::endl;
+#endif
+    }
     std::map<int, std::pair<QString, std::shared_ptr<BaseAction>>> gestures;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

@@ -9,7 +9,12 @@
 class CustomLightingNodeModePoint
 {
 public:
-    CustomLightingNodeModePoint() {}
+    CustomLightingNodeModePoint()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CustomLightingNodeModePoint" << std::endl;
+#endif
+    }
     bool enabled;
     int temperature;
     int rpm;
@@ -25,7 +30,12 @@ CEREAL_CLASS_VERSION(CustomLightingNodeModePoint, 300)
 class LightingNodeCoolingConfiguration : public CoolingConfigurationBase
 {
 public:
-    LightingNodeCoolingConfiguration() {}
+    LightingNodeCoolingConfiguration()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created LightingNodeCoolingConfiguration" << std::endl;
+#endif
+    }
     void Dummy() {}
     int fanMode;
     int fixedPercents;

@@ -9,7 +9,12 @@
 class ChannelPropertiesClass : public ChannelPropertiesBase
 {
 public:
-    ChannelPropertiesClass() {}
+    ChannelPropertiesClass()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ChannelPropertiesClass" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

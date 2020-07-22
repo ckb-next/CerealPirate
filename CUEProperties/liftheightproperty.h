@@ -8,7 +8,12 @@
 class LiftHeightProperty : public BaseProperty
 {
 public:
-    LiftHeightProperty() {}
+    LiftHeightProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created LiftHeightProperty" << std::endl;
+#endif
+    }
     QString value;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

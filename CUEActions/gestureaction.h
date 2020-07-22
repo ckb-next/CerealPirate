@@ -7,7 +7,12 @@
 class GestureAction : public BaseAction
 {
 public:
-    GestureAction() {}
+    GestureAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created GestureAction" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

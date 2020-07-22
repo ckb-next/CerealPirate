@@ -8,7 +8,12 @@
 class OSDProperty : public BaseProperty
 {
 public:
-    OSDProperty() {}
+    OSDProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created OSDProperty" << std::endl;
+#endif
+    }
 #warning "FIXME: Find the right data types for all the values"
     int profile;
     int dpi;

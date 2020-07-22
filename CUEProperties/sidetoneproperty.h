@@ -7,7 +7,12 @@
 class SidetoneProperty : public BaseProperty
 {
 public:
-    SidetoneProperty() {}
+    SidetoneProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SidetoneProperty" << std::endl;
+#endif
+    }
     bool muted;
     int level;
     template <class Archive>

@@ -9,7 +9,12 @@
 class ChannelPropertiesContainerClass : public BaseProperty
 {
 public:
-    ChannelPropertiesContainerClass() {}
+    ChannelPropertiesContainerClass()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ChannelPropertiesContainerClass" << std::endl;
+#endif
+    }
     std::vector<std::unique_ptr<ChannelPropertiesClass>> channelProperties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

@@ -8,7 +8,12 @@
 class CoolingConfigurationStorageBase : public CoolingConfigurationStorageBaseBase
 {
 public:
-    CoolingConfigurationStorageBase() {}
+    CoolingConfigurationStorageBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CoolingConfigurationStorageBase" << std::endl;
+#endif
+    }
     std::vector<std::shared_ptr<CoolingConfigurationBase>> configurations;
     bool supportExternalSensor;
     bool supportsCreateCoolingConfigurations;

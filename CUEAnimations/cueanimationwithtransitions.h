@@ -8,7 +8,12 @@
 class CUEAnimationTransition
 {
 public:
-    CUEAnimationTransition() {}
+    CUEAnimationTransition()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEAnimationTransition" << std::endl;
+#endif
+    }
     double time;
     QString color;
     template <class Archive>
@@ -22,7 +27,12 @@ CEREAL_CLASS_VERSION(CUEAnimationTransition, 200)
 class CUEAnimationWithTransitions : public CUEAnimationBase
 {
 public:
-    CUEAnimationWithTransitions() {}
+    CUEAnimationWithTransitions()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEAnimationWithTransitions" << std::endl;
+#endif
+    }
     std::vector<CUEAnimationTransition> transitions;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

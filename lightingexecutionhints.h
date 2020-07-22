@@ -6,7 +6,12 @@
 class LightingExecutionHints
 {
 public:
-    LightingExecutionHints() {}
+    LightingExecutionHints()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created LightingExecutionHints" << std::endl;
+#endif
+    }
     bool startOnKeyPress;
     bool startWithProfile;
     bool stopOnKeyPress;

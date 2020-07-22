@@ -9,7 +9,12 @@
 class AsetekCoolingConfiguration : public CoolingConfigurationBase
 {
 public:
-    AsetekCoolingConfiguration() {}
+    AsetekCoolingConfiguration()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created AsetekCoolingConfiguration" << std::endl;
+#endif
+    }
     void Dummy() {}
     int pumpMode;
     int fanMode;

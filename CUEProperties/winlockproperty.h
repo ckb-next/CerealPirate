@@ -8,7 +8,12 @@
 class WinlockProperty : public BaseProperty
 {
 public:
-    WinlockProperty() {}
+    WinlockProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created WinlockProperty" << std::endl;
+#endif
+    }
     bool disableAltTab;
     bool disableAltF4;
     bool disableWinKey;

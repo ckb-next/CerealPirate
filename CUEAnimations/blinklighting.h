@@ -5,7 +5,12 @@
 class BlinkLighting : public CUEAnimationBase
 {
 public:
-    BlinkLighting() {}
+    BlinkLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BlinkLighting" << std::endl;
+#endif
+    }
     QString color1;
     QString color2;
     QString type;

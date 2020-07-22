@@ -8,7 +8,12 @@
 class CUEKeyBase
 {
 public:
-    CUEKeyBase() {}
+    CUEKeyBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEKeyBase" << std::endl;
+#endif
+    }
     QString name;
     std::vector<QString> keys;
     bool enabled;

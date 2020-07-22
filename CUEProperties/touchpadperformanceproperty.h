@@ -8,7 +8,12 @@
 class TouchpadPerformanceProperty : public BaseProperty
 {
 public:
-    TouchpadPerformanceProperty() {}
+    TouchpadPerformanceProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created TouchpadPerformanceProperty" << std::endl;
+#endif
+    }
     QString modeFLockOff;
     QString modeFLockOn;
     int pointerSpeed;

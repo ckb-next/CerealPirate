@@ -10,7 +10,12 @@
 class BasicLightingParams
 {
 public:
-    BasicLightingParams() {}
+    BasicLightingParams()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BasicLightingParams" << std::endl;
+#endif
+    }
     int speed;
     int color;
     int direction;

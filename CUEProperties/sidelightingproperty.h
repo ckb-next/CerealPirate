@@ -8,7 +8,12 @@
 class SideLightingProperty : public BaseProperty
 {
 public:
-    SideLightingProperty() {}
+    SideLightingProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SideLightingProperty" << std::endl;
+#endif
+    }
     bool enabled;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

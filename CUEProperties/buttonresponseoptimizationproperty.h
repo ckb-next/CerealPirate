@@ -7,7 +7,12 @@
 class ButtonResponseOptimizationProperty : public BaseProperty
 {
 public:
-    ButtonResponseOptimizationProperty() {}
+    ButtonResponseOptimizationProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ButtonResponseOptimizationProperty" << std::endl;
+#endif
+    }
     QString value;
     bool enabled;
 

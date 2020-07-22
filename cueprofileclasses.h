@@ -1,5 +1,11 @@
 #ifndef CUEPROFILECLASSES_H
 #define CUEPROFILECLASSES_H
+#include <map>
+#include <QString>
+// This is used to change the comparator if needed for the tests
+std::map<QString, int>* profileKeyCmpMap = nullptr;
+std::map<QString, int>* coolingCmpMap = nullptr;
+std::map<QString, int>* devCmpMap = nullptr;
 
 // Properties
 #include "CUEProperties/baseproperty.h"

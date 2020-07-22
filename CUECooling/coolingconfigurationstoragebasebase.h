@@ -8,7 +8,12 @@
 class CoolingConfigurationStorageBaseBase
 {
 public:
-    CoolingConfigurationStorageBaseBase() {}
+    CoolingConfigurationStorageBaseBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CoolingConfigurationStorageBaseBase" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

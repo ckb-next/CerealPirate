@@ -8,7 +8,12 @@
 class TemperatureAlertProperty : public BaseProperty
 {
 public:
-    TemperatureAlertProperty() {}
+    TemperatureAlertProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created TemperatureAlertProperty" << std::endl;
+#endif
+    }
 #warning "FIXME: these are definitely not ints"
     std::vector<int> assignments;
     std::vector<int> alerts;

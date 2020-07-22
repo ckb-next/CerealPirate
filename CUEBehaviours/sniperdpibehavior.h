@@ -4,7 +4,12 @@
 class SniperDpiBehavior : public BaseBehaviour
 {
 public:
-    SniperDpiBehavior() {}
+    SniperDpiBehavior()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SniperDpiBehavior" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

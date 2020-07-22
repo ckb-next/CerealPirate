@@ -8,7 +8,12 @@
 class MicMuteAction : public BaseAction
 {
 public:
-    MicMuteAction() {}
+    MicMuteAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created MicMuteAction" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

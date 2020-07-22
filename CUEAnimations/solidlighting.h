@@ -6,7 +6,12 @@
 class SolidLighting : public CUEAnimationWithTransitions
 {
 public:
-    SolidLighting() {}
+    SolidLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SolidLighting" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

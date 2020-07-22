@@ -8,7 +8,12 @@
 class IndicatorBrightnessProperty : public BaseProperty
 {
 public:
-    IndicatorBrightnessProperty() {}
+    IndicatorBrightnessProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created IndicatorBrightnessProperty" << std::endl;
+#endif
+    }
     int IndicatorBrightness;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

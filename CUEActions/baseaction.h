@@ -8,7 +8,12 @@
 class BaseAction
 {
 public:
-    BaseAction() {}
+    BaseAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BaseAction" << std::endl;
+#endif
+    }
     QString name;
     QString id;
     CUERepeatOptions repeatOptions;

@@ -7,7 +7,12 @@
 class StaticLighting : public CUEAnimationWithTransitions
 {
 public:
-    StaticLighting() {}
+    StaticLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created StaticLighting" << std::endl;
+#endif
+    }
     uint8_t opacity;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

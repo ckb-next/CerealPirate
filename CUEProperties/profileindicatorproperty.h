@@ -8,7 +8,12 @@
 class ProfileIndicatorProperty : public BaseProperty
 {
 public:
-    ProfileIndicatorProperty() {}
+    ProfileIndicatorProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ProfileIndicatorProperty" << std::endl;
+#endif
+    }
     QString m1Color;
     QString m2Color;
     QString m3Color;

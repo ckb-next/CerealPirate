@@ -8,7 +8,12 @@
 class RainbowWaveLighting : public CUEAnimationBase
 {
 public:
-    RainbowWaveLighting() {}
+    RainbowWaveLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created RainbowWaveLighting" << std::endl;
+#endif
+    }
     int speed;
     int direction;
     template <class Archive>

@@ -8,7 +8,12 @@
 class MicrophoneProperty : public BaseProperty
 {
 public:
-    MicrophoneProperty() {}
+    MicrophoneProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created MicrophoneProperty" << std::endl;
+#endif
+    }
     bool muted;
     int level;
     int intervalIndex;

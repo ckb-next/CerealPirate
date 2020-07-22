@@ -8,7 +8,12 @@
 class VisorLighting : public CUEAnimationBase
 {
 public:
-    VisorLighting() {}
+    VisorLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created VisorLighting" << std::endl;
+#endif
+    }
     CUEColourClass colors;
     bool random;
     int speed;

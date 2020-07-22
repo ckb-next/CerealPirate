@@ -8,7 +8,12 @@
 class RainbowLighting : public CUEAnimationBase
 {
 public:
-    RainbowLighting() {}
+    RainbowLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created RainbowLighting" << std::endl;
+#endif
+    }
     int speed;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

@@ -9,7 +9,12 @@
 class RainLighting : public CUEAnimationBase
 {
 public:
-    RainLighting() {}
+    RainLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created RainLighting" << std::endl;
+#endif
+    }
     CUEColourClass colors;
     bool random;
     uint8_t opacity;

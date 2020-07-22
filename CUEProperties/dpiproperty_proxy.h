@@ -8,7 +8,12 @@
 class DPIProperty : public BaseProperty
 {
 public:
-    DPIProperty() {}
+    DPIProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created DPIProperty" << std::endl;
+#endif
+    }
     QString id;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
@@ -24,7 +29,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, DPIProperty)
 class DPIProperty_Proxy : public BaseProperty
 {
 public:
-    DPIProperty_Proxy() {}
+    DPIProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::map<int, std::unique_ptr<DPIProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

@@ -8,7 +8,12 @@
 class JoystickPerformanceProperty : public BaseProperty
 {
 public:
-    JoystickPerformanceProperty() {}
+    JoystickPerformanceProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created JoystickPerformanceProperty" << std::endl;
+#endif
+    }
     QString modeFLockOff;
     QString modeFLockOn;
     int deadZone;

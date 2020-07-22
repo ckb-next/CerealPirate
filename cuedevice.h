@@ -7,7 +7,12 @@
 class CUEDeviceVidPid
 {
 public:
-    CUEDeviceVidPid() {}
+    CUEDeviceVidPid()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEDeviceVidPid" << std::endl;
+#endif
+    }
     // Negative Vids/Pids are used
     int32_t usbVid;
     int32_t usbPid;
@@ -19,20 +24,15 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDeviceVidPid, 200)
 
-static std::map<QString, int> devcmpmap = {
-    {"StandardRgb", 0},
-    {"StandardSingleColor", 1},
-    {"ZoneRgb", 2},
-    {"RestrictedWireless", 3},
-    {"DramSingleColor", 4},
-    {"Undefined", 5},
-    {"DramRgb", 6},
-};
-
 class CUEDevice
 {
 public:
-    CUEDevice() {}
+    CUEDevice()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEDevice" << std::endl;
+#endif
+    }
     QString deviceId;
     CUEDeviceVidPid modelId;
     QString hidCaps;
@@ -59,7 +59,12 @@ public:
 class CUEDeviceNoCaps
 {
 public:
-    CUEDeviceNoCaps() {}
+    CUEDeviceNoCaps()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEDeviceNoCaps" << std::endl;
+#endif
+    }
     QString capability;
     QString deviceId;
     CUEDeviceVidPid modelId;
@@ -71,14 +76,25 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDeviceNoCaps, 301)
 
+static std::map<QString, int> devCmpMapDefault = {
+    {"StandardRgb", 0},
+    {"StandardSingleColor", 1},
+    {"ZoneRgb", 2},
+    {"RestrictedWireless", 3},
+    {"DramSingleColor", 4},
+    {"Undefined", 5},
+    {"DramRgb", 6},
+};
+
 class CUEDeviceNoCapsComparator
 {
 public:
     bool operator()(const CUEDeviceNoCaps& d1, const CUEDeviceNoCaps& d2)
     {
+        std::map<QString, int>& cmpmap = *(devCmpMap ? devCmpMap : &devCmpMapDefault);
         // In case we don't have the value in the list
-        if((devcmpmap.count(d1.capability) && devcmpmap.count(d2.capability)))
-            return devcmpmap[d1.capability] < devcmpmap[d2.capability];
+        if((cmpmap.count(d1.capability) && cmpmap.count(d2.capability)))
+            return cmpmap[d1.capability] < cmpmap[d2.capability];
 
         return (d1.deviceId == d2.deviceId) | (d1.capability < d2.capability)
                 | (d1.modelId.usbPid + d1.modelId.usbVid > d2.modelId.usbPid + d2.modelId.usbVid);
@@ -89,7 +105,12 @@ public:
 class CUEDeviceNoCapsNoCap
 {
 public:
-    CUEDeviceNoCapsNoCap() {}
+    CUEDeviceNoCapsNoCap()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEDeviceNoCapsNoCap" << std::endl;
+#endif
+    }
     QString deviceId;
     CUEDeviceVidPid vidPid;
     template <class Archive>
@@ -100,7 +121,7 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEDeviceNoCapsNoCap, 300)
 
-static std::map<QString, int> coolingcmpmap = {
+static std::map<QString, int> coolingCmpMapDefault = {
     {"DEMO_COMMANDER_PRO_DEVICE", 0},
     {"DEMO_PSU_DEVICE", 1},
     {"DEMO_LIQUID_COOLER_DEVICE", 2},
@@ -111,9 +132,10 @@ class CUEDeviceNoCapsNoCapComparator
 public:
     bool operator()(const CUEDeviceNoCapsNoCap& d1, const CUEDeviceNoCapsNoCap& d2)
     {
+        std::map<QString, int>& cmpmap = *(coolingCmpMap ? coolingCmpMap : &coolingCmpMapDefault);
         // In case we don't have the value in the list
-        if((coolingcmpmap.count(d1.deviceId) && coolingcmpmap.count(d2.deviceId)))
-            return coolingcmpmap[d1.deviceId] < coolingcmpmap[d2.deviceId];
+        if((cmpmap.count(d1.deviceId) && cmpmap.count(d2.deviceId)))
+            return cmpmap[d1.deviceId] < cmpmap[d2.deviceId];
 
         return (d1.vidPid.usbPid + d1.vidPid.usbVid > d2.vidPid.usbPid + d2.vidPid.usbVid);
     }

@@ -8,7 +8,12 @@
 class AngleSnappingProperty : public BaseProperty
 {
 public:
-    AngleSnappingProperty() {}
+    AngleSnappingProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created AngleSnappingProperty" << std::endl;
+#endif
+    }
     bool enabled;
     int value; // This is also most likely an enum
     template <class Archive>

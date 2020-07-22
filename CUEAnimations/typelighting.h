@@ -9,7 +9,12 @@
 class TypeLighting : public CUEAnimationBase
 {
 public:
-    TypeLighting() {}
+    TypeLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created TypeLighting" << std::endl;
+#endif
+    }
     CUEColourClass colors;
     bool random;
     uint8_t opacity;

@@ -114,4 +114,9 @@ HEADERS += \
     lightingexecutionhints.h
 QMAKE_CXXFLAGS += "-Wno-unused-parameter"
 
+CONFIG += file_copies
+COPIES += tests
+tests.files = $$files(tests/*.cueprofile)
+tests.path = $$OUT_PWD/tests
+
 PRECOMPILED_HEADER = cueprofileclasses.h

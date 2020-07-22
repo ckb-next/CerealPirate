@@ -8,7 +8,12 @@
 class BrightnessIndicatorProperty : public BaseProperty
 {
 public:
-    BrightnessIndicatorProperty() {}
+    BrightnessIndicatorProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BrightnessIndicatorProperty" << std::endl;
+#endif
+    }
     QString indicatorColor;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
@@ -25,7 +30,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, BrightnessIndicatorProperty)
 class BrightnessIndicatorProperty_Proxy : public BaseProperty
 {
 public:
-    BrightnessIndicatorProperty_Proxy() {}
+    BrightnessIndicatorProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::unordered_map<bool, std::unique_ptr<BrightnessIndicatorProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

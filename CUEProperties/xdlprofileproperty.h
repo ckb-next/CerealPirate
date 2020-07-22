@@ -8,7 +8,12 @@
 class XDLProfileBase : public BaseProperty
 {
 public:
-    XDLProfileBase() {}
+    XDLProfileBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created XDLProfileBase" << std::endl;
+#endif
+    }
     bool enabled;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
@@ -23,7 +28,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, XDLProfileBase)
 class XDLProfileProperty : public XDLProfileBase
 {
 public:
-    XDLProfileProperty() {}
+    XDLProfileProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created XDLProfileProperty" << std::endl;
+#endif
+    }
     std::shared_ptr<BasicLightingLayer> layer;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

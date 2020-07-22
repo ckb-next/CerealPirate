@@ -8,7 +8,12 @@
 class MacroRecordingAction : public BaseAction
 {
 public:
-    MacroRecordingAction() {}
+    MacroRecordingAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created MacroRecordingAction" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

@@ -8,7 +8,12 @@
 class ColorShiftLighting : public CUEAnimationBase
 {
 public:
-    ColorShiftLighting() {}
+    ColorShiftLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ColorShiftLighting" << std::endl;
+#endif
+    }
     CUEColourClass colors;
     bool random;
     int speed;

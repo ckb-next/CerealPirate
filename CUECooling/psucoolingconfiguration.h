@@ -9,7 +9,12 @@
 class PSUCoolingConfiguration : public CoolingConfigurationBase
 {
 public:
-    PSUCoolingConfiguration() {}
+    PSUCoolingConfiguration()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created PSUCoolingConfiguration" << std::endl;
+#endif
+    }
     void Dummy() {}
     int fanMode;
     int fixedPercents;

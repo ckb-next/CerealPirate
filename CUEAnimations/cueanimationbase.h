@@ -6,7 +6,12 @@
 class CUEAnimationBase
 {
 public:
-    CUEAnimationBase() {}
+    CUEAnimationBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEAnimationBase" << std::endl;
+#endif
+    }
     QString name;
     QString id;
     unsigned int duration; // FIXME: Find the right type

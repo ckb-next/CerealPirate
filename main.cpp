@@ -66,7 +66,7 @@ public:
     }
 };
 
-static std::map<QString, int> cmpmap = {
+static std::map<QString, int> profileKeyComparatorMapDefault = {
     {"Mouse", 0},
     {"Keyboard", 1},
     {"Headset", 2},
@@ -84,6 +84,7 @@ public:
     CUEprofileKeyComparator() {}
     bool operator() (const QString& a, const QString& b)
     {
+        std::map<QString, int>& cmpmap = *(profileKeyCmpMap ? profileKeyCmpMap : &profileKeyComparatorMapDefault);
         // In case we don't have the value in the list
         if(cmpmap.count(a) && cmpmap.count(b))
             return cmpmap[a] < cmpmap[b];
@@ -216,69 +217,164 @@ public:
 };
 CEREAL_CLASS_VERSION(CUEProfileContainer, 300)
 
-int main(int argc, char *argv[])
+class XMLTests
 {
+public:
+    const char* file;
+    std::map<QString, int>* pKeyComparatorMap;
+    std::map<QString, int>* devComparatorMap;
+    std::map<QString, int>* coolingComparatorMap;
+};
+
+static void trimEnd(std::string& str)
+{
+    std::string::size_type sl = str.length();
+    if(!sl)
+        return;
+    sl--;
+    if(str[sl] == '\r')
+        str.resize(sl);
+}
+
+#include <string>
+int main(int argc, char* argv[])
+{
+    int ret = 0;
     QString oldLocale (setlocale(LC_NUMERIC, NULL));
     QCoreApplication a(argc, argv);
     QString newLocale (setlocale(LC_NUMERIC, NULL));
-    setlocale(LC_NUMERIC, oldLocale.toUtf8());
-    const char* file = "/tmp/basic.cueprofile";
+
+    // Test maps
+    std::map<QString, int> cmpmap1 = {
+        {"LightingNode", -1},
+        {"Mouse", 0},
+        {"Keyboard", 1},
+        {"Headset", 2},
+        {"MouseMat", 3},
+        {"HeadsetStand", 4},
+        {"DRAM", 5},
+        {"Profile", 6},
+        {"LiquidColler", 7},
+        {"PSU", 8},
+    };
+
+    std::map<QString, int> clcmpmap1 = {
+        {"DEMO_COMMANDER_PRO_DEVICE", 2},
+        {"DEMO_PSU_DEVICE", 1},
+        {"DEMO_LIQUID_COOLER_DEVICE", 3},
+    };
+
+    std::vector<XMLTests> files = {
+        {"tests/test1.cueprofile", nullptr, nullptr, nullptr},
+        {"tests/test2.cueprofile", &cmpmap1, nullptr, &clcmpmap1},
+        {"tests/test3.cueprofile", nullptr, nullptr, &clcmpmap1}
+    };
+
     if(argc == 2)
-        file = argv[1];
-    std::ifstream is(file);
-   /* try
-    {*/
-    cereal::XMLInputArchive ar(is);
-
-    CUEProfileContainer profcont;
-
-    ar(profcont);
-
-   /* profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
-    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
-    profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));
-    CUEDevice cd;
-    cd.modelId.usbPid = 1234;
-    cd.modelId.usbVid = 4321;
-    ChannelPropertiesContainerClass* cpc = new ChannelPropertiesContainerClass;
-    cpc->channelProperties.push_back(std::unique_ptr<ChannelPropertiesClass>(new ChannelPropertiesClass));
-    dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<ChannelPropertiesContainerClass>(cpc);
-    ChannelPropertiesClass* meh = cpc->channelProperties[0].get();
-    AdvancedLightingLayer* all = new AdvancedLightingLayer;
-    all->enabled = true;
-    all->lighting = std::shared_ptr<CUEAnimationBase>(new GradientLighting);
-    all->lighting->brightness = 10;
-    CUEAnimationTransition t;
-    t.time = 0.49190938511326859;
-    (dynamic_cast<GradientLighting*>(all->lighting.get()))->transitions.push_back(t);
-    meh->layers.push_back(std::unique_ptr<AdvancedLightingLayer>(all));*/
-
     {
-        std::ofstream os("/tmp/gradient_export.cueprofile");
-        cereal::XMLOutputArchive aro(os);
-        aro(profcont);
+        if(!strcmp(argv[1], "--help"))
+        {
+            std::cout << "No arguments: run all tests" << std::endl << "One argument: Deserialise and reserialise the file specified" << std::endl;
+            return 0;
+        }
+        else
+            files = {{argv[1], nullptr, nullptr, nullptr}};
+    }
+    for(const XMLTests& test : files)
+    {
+        std::cout << "Testing " << test.file << "... ";
+        std::ifstream is(test.file);
+        std::string outfstr(test.file);
+        outfstr.append("_tested");
+
+        profileKeyCmpMap = test.pKeyComparatorMap;
+        devCmpMap = test.devComparatorMap;
+        coolingCmpMap = test.coolingComparatorMap;
+        try
+        {
+            setlocale(LC_NUMERIC, oldLocale.toUtf8());
+            cereal::XMLInputArchive ar(is);
+
+            CUEProfileContainer profcont;
+
+            ar(profcont);
+            {
+                std::ofstream os(outfstr);
+                cereal::XMLOutputArchive aro(os);
+                aro(profcont);
+            }
+
+            CUEProfileContainer profcont2;
+            // Do this so that the elements in the XML are swapped back
+            {
+                std::ifstream is2(outfstr);
+                cereal::XMLInputArchive ar2(is2);
+                ar2(profcont2);
+            }
+            {
+                std::ofstream os(outfstr);
+                cereal::XMLOutputArchive aro(os);
+                aro(profcont2);
+            }
+        }
+        catch(const cereal::Exception& e)
+        {
+            std::cout << "Exception thrown while testing file " << test.file << std::endl << "what(): " << e.what() << std::endl;
+            ret = 1;
+        }
+
+        setlocale(LC_NUMERIC, newLocale.toUtf8());
+
+        // Read back and compare
+        is.seekg(0, is.beg);
+        std::ifstream is_new(outfstr);
+        std::string str1;
+        std::string str2;
+        bool fail = false;
+        uint64_t lnum = 1;
+        // Compare line by line
+
+        while(std::getline(is, str1) && std::getline(is_new, str2))
+        {
+            trimEnd(str1);
+            trimEnd(str2);
+            fail = !(str1 == str2);
+            if(fail)
+                break;
+            lnum++;
+        }
+        // Once either of them reaches EOF, try to read again. If any of them succeed, then they differ.
+        if(!fail && (std::getline(is, str1) || std::getline(is_new, str2)))
+        {
+            lnum++;
+            fail = true;
+        }
+        if(fail)
+            std::cout << "FAIL (line " << lnum << ")" << std::endl;
+        else
+            std::cout << "SUCCESS" << std::endl;
+        ret |= fail;
     }
 
-    CUEProfileContainer profcont2;
-    // Do this so that the elements in the XML are swapped back
-    {
-        std::ifstream is2("/tmp/gradient_export.cueprofile");
-        cereal::XMLInputArchive ar2(is2);
-        ar2(profcont2);
-    }
-    {
-        std::ofstream os("/tmp/gradient_export.cueprofile");
-        cereal::XMLOutputArchive aro(os);
-        aro(profcont2);
-    }
+    /* profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new ButtonResponseOptimizationProperty));
+     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new LiftHeightProperty));
+     profcont.profile.properties["Mouse"].l.push_back(std::unique_ptr<BaseProperty>(new AggregatedLightingsProperty_Proxy));
+     CUEDevice cd;
+     cd.modelId.usbPid = 1234;
+     cd.modelId.usbVid = 4321;
+     ChannelPropertiesContainerClass* cpc = new ChannelPropertiesContainerClass;
+     cpc->channelProperties.push_back(std::unique_ptr<ChannelPropertiesClass>(new ChannelPropertiesClass));
+     dynamic_cast<AggregatedLightingsProperty_Proxy*>(profcont.profile.properties["Mouse"].l[2].get())->properties[cd] = std::unique_ptr<ChannelPropertiesContainerClass>(cpc);
+     ChannelPropertiesClass* meh = cpc->channelProperties[0].get();
+     AdvancedLightingLayer* all = new AdvancedLightingLayer;
+     all->enabled = true;
+     all->lighting = std::shared_ptr<CUEAnimationBase>(new GradientLighting);
+     all->lighting->brightness = 10;
+     CUEAnimationTransition t;
+     t.time = 0.49190938511326859;
+     (dynamic_cast<GradientLighting*>(all->lighting.get()))->transitions.push_back(t);
+     meh->layers.push_back(std::unique_ptr<AdvancedLightingLayer>(all));
+    */
 
-    /*}
-    catch(const cereal::Exception& e)
-    {
-        std::cout << e.what() << std::endl;
-    }*/
-
-    setlocale(LC_NUMERIC, newLocale.toUtf8());
-
-    return 0;
+    return ret;
 }

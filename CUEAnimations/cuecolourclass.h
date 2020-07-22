@@ -7,7 +7,12 @@
 class CUEColourClass
 {
 public:
-    CUEColourClass() {}
+    CUEColourClass()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEColourClass" << std::endl;
+#endif
+    }
     // Colours are possibly in format 0xRRGGBBAA
     // FIXME: verify that the above is true
     uint32_t first;

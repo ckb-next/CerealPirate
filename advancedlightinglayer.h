@@ -8,7 +8,12 @@
 class AdvancedLightingLayer : public CUEKeyBase
 {
 public:
-    AdvancedLightingLayer() {}
+    AdvancedLightingLayer()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created AdvancedLightingLayer" << std::endl;
+#endif
+    }
     std::shared_ptr<CUEAnimationBase> lighting;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

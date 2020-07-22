@@ -7,7 +7,12 @@
 class WaveLighting : public CUEAnimationWithTransitions
 {
 public:
-    WaveLighting() {}
+    WaveLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created WaveLighting" << std::endl;
+#endif
+    }
     unsigned int velocity;
     unsigned int tailLength;
     bool isDoublesided;

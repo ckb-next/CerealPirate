@@ -23,7 +23,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, HardwareMetaProperty)
 class HardwareMetaProperty_Proxy : public BaseProperty
 {
 public:
-    HardwareMetaProperty_Proxy() {}
+    HardwareMetaProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::unordered_map<bool, std::unique_ptr<HardwareMetaProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

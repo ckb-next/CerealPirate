@@ -8,7 +8,12 @@
 class ChannelPropertiesBase : public BaseProperty
 {
 public:
-    ChannelPropertiesBase() {}
+    ChannelPropertiesBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ChannelPropertiesBase" << std::endl;
+#endif
+    }
     std::vector<std::shared_ptr<CUEKeyBase>> layers;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

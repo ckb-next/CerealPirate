@@ -10,7 +10,12 @@
 class AdvancedLightingsProperty_Proxy : public BaseProperty
 {
 public:
-    AdvancedLightingsProperty_Proxy() {}
+    AdvancedLightingsProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     QString value;
     std::unordered_map<bool, std::unique_ptr<ChannelPropertiesClass>> properties;
     template <class Archive>

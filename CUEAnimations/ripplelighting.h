@@ -8,7 +8,12 @@
 class RippleLighting : public CUEAnimationWithTransitions
 {
 public:
-    RippleLighting() {}
+    RippleLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created RippleLighting" << std::endl;
+#endif
+    }
     unsigned int velocity;
     unsigned int tailLength;
     bool autoDuration;

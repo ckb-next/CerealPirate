@@ -7,7 +7,12 @@
 class DolbyProperty : public BaseProperty
 {
 public:
-    DolbyProperty() {}
+    DolbyProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created DolbyProperty" << std::endl;
+#endif
+    }
     bool enabled;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

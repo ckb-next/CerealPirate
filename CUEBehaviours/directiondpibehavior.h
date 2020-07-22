@@ -4,7 +4,12 @@
 class DirectionDpiBehavior : public BaseBehaviour
 {
 public:
-    DirectionDpiBehavior() {}
+    DirectionDpiBehavior()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created DirectionDpiBehavior" << std::endl;
+#endif
+    }
     bool forward;
     bool loob;
     bool applyToAllModes;

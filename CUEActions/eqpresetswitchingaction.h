@@ -8,7 +8,12 @@
 class EqPresetSwitchingAction : public BaseAction
 {
 public:
-    EqPresetSwitchingAction() {}
+    EqPresetSwitchingAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created EqPresetSwitchingAction" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

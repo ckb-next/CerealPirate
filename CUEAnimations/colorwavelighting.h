@@ -8,7 +8,12 @@
 class ColorWaveLighting : public CUEAnimationBase
 {
 public:
-    ColorWaveLighting() {}
+    ColorWaveLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ColorWaveLighting" << std::endl;
+#endif
+    }
     int speed;
     bool random;
     CUEColourClass colors;

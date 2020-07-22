@@ -6,7 +6,12 @@
 class ActionExecutionHints
 {
 public:
-    ActionExecutionHints() {}
+    ActionExecutionHints()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ActionExecutionHints" << std::endl;
+#endif
+    }
     bool terminateOnSecondExec;
     bool restartOnSecondExec;
     QString execHint;

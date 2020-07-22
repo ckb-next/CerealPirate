@@ -8,7 +8,12 @@
 class SidetoneMuteAction : public BaseAction
 {
 public:
-    SidetoneMuteAction() {}
+    SidetoneMuteAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SidetoneMuteAction" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

@@ -7,7 +7,12 @@
 class CUERepeatOptions
 {
 public:
-    CUERepeatOptions() {}
+    CUERepeatOptions()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUERepeatOptions" << std::endl;
+#endif
+    }
     int repeatCount;
     QString repeatMode;
     unsigned int delay;

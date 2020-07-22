@@ -9,7 +9,12 @@
 class SingleColorVisorLighting : public CUEAnimationBase
 {
 public:
-    SingleColorVisorLighting() {}
+    SingleColorVisorLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SingleColorVisorLighting" << std::endl;
+#endif
+    }
     uint8_t opacity;
     int speed;
     template <class Archive>

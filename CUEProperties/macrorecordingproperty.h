@@ -8,7 +8,12 @@
 class MacroRecordingProperty : public BaseProperty
 {
 public:
-    MacroRecordingProperty() {}
+    MacroRecordingProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created MacroRecordingProperty" << std::endl;
+#endif
+    }
     QString enabledIndicatorColor;
     QString disabledIndicatorColor;
     template <class Archive>

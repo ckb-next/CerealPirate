@@ -8,7 +8,12 @@
 class SystemPointerProperty : public BaseProperty
 {
 public:
-    SystemPointerProperty() {}
+    SystemPointerProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SystemPointerProperty" << std::endl;
+#endif
+    }
     QString enhancePointerPrecision;
     int pointerMotionSpeed;
     template <class Archive>

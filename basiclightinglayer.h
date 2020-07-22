@@ -9,7 +9,12 @@
 class BasicLightingLayer : public CUEKeyBase
 {
 public:
-    BasicLightingLayer() {}
+    BasicLightingLayer()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BasicLightingLayer" << std::endl;
+#endif
+    }
     QString effect;
     std::map<QString, BasicLightingParams> params;
     template <class Archive>

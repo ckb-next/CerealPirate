@@ -7,7 +7,12 @@
 class ProfileSwitchingAction : public BaseAction
 {
 public:
-    ProfileSwitchingAction() {}
+    ProfileSwitchingAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ProfileSwitchingAction" << std::endl;
+#endif
+    }
     QString switchType;
     bool loop;
 #warning "what's the vector type?"

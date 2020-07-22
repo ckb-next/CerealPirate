@@ -13,7 +13,12 @@
 class UnknownLightingProperty : public ChannelPropertiesBase
 {
 public:
-    UnknownLightingProperty() {}
+    UnknownLightingProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created UnknownLightingProperty" << std::endl;
+#endif
+    }
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
@@ -30,7 +35,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, UnknownLightingProperty)
 class BasicLightingsProperty_Proxy : public BaseProperty
 {
 public:
-    BasicLightingsProperty_Proxy() {}
+    BasicLightingsProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::map<CUEDeviceNoCaps, std::unique_ptr<UnknownLightingProperty>, CUEDeviceNoCapsComparator> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

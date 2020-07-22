@@ -8,7 +8,12 @@
 class KeyRemapAction : public BaseAction
 {
 public:
-    KeyRemapAction() {}
+    KeyRemapAction()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created KeyRemapAction" << std::endl;
+#endif
+    }
     QString keyName;
 #warning "What type is the vector?"
     std::vector<int> keyStroke;

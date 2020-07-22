@@ -8,7 +8,12 @@
 class WinlockIndicatorProperty : public BaseProperty
 {
 public:
-    WinlockIndicatorProperty() {}
+    WinlockIndicatorProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created WinlockIndicatorProperty" << std::endl;
+#endif
+    }
     QString enabledIndicatorColor;
     QString disabledIndicatorColor;
     template <class Archive>
@@ -27,7 +32,12 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(BaseProperty, WinlockIndicatorProperty)
 class WinlockIndicatorProperty_Proxy : public BaseProperty
 {
 public:
-    WinlockIndicatorProperty_Proxy() {}
+    WinlockIndicatorProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::unordered_map<bool, std::unique_ptr<WinlockIndicatorProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

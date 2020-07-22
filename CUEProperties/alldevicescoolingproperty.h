@@ -8,7 +8,12 @@
 class AllDevicesCoolingProperty : public BaseProperty
 {
 public:
-    AllDevicesCoolingProperty() {}
+    AllDevicesCoolingProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created AllDevicesCoolingProperty" << std::endl;
+#endif
+    }
     bool enabled;
     int fixedPercents;
     int activeMode;

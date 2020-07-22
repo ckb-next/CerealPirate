@@ -8,7 +8,12 @@
 class SpiralRainbowLighting : public CUEAnimationBase
 {
 public:
-    SpiralRainbowLighting() {}
+    SpiralRainbowLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created SpiralRainbowLighting" << std::endl;
+#endif
+    }
     bool clockwise;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

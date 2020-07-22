@@ -8,7 +8,12 @@
 class BatteryProperty : public BaseProperty
 {
 public:
-    BatteryProperty() {}
+    BatteryProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created BatteryProperty" << std::endl;
+#endif
+    }
     int lowBatteryIntervalIndex;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

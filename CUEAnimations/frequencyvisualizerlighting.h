@@ -8,7 +8,12 @@
 class FrequencyVisualizerLighting : public CUEAnimationBase
 {
 public:
-    FrequencyVisualizerLighting() {}
+    FrequencyVisualizerLighting()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created FrequencyVisualizerLighting" << std::endl;
+#endif
+    }
     QString presentation;
     QString visualization;
     CUEColourClass colors;

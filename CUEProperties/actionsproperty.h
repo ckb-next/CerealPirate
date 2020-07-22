@@ -12,7 +12,12 @@ typedef std::pair<std::shared_ptr<BaseAction>, std::pair<QString, QString>> acti
 class ActionsProperty : public BaseProperty
 {
 public:
-    ActionsProperty() {}
+    ActionsProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created ActionsProperty" << std::endl;
+#endif
+    }
     std::vector<action_t> actions;
     std::vector<action_t> default_actions;
     template <class Archive>

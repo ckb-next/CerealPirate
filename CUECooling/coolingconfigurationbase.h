@@ -7,7 +7,12 @@
 class CustomModePoint
 {
 public:
-    CustomModePoint() {}
+    CustomModePoint()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CustomModePoint" << std::endl;
+#endif
+    }
     bool enabled;
     int temperature;
     int rpmPercents;
@@ -23,7 +28,12 @@ CEREAL_CLASS_VERSION(CustomModePoint, 300)
 class CoolingConfigurationBase
 {
 public:
-    CoolingConfigurationBase() {}
+    CoolingConfigurationBase()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CoolingConfigurationBase" << std::endl;
+#endif
+    }
     QString id;
     QString name;
     bool predefined;

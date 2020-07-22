@@ -9,7 +9,12 @@
 class AssignmentConfig
 {
 public:
-    AssignmentConfig() {}
+    AssignmentConfig()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created AssignmentConfig" << std::endl;
+#endif
+    }
     QString assignmentConfigId;
     std::shared_ptr<CoolingConfigurationBase> defaultConfig;
     template <class Archive>
@@ -23,7 +28,12 @@ CEREAL_CLASS_VERSION(AssignmentConfig, 300)
 class CoolingConfigurationProperty : public BaseProperty
 {
 public:
-    CoolingConfigurationProperty() {}
+    CoolingConfigurationProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CoolingConfigurationProperty" << std::endl;
+#endif
+    }
     void Dummy() {}
     std::map<QString, AssignmentConfig> assignments;
     template <class Archive>
@@ -37,7 +47,12 @@ CEREAL_CLASS_VERSION(CoolingConfigurationProperty, 300)
 class CoolingConfigurationProperty_Proxy : public BaseProperty
 {
 public:
-    CoolingConfigurationProperty_Proxy() {}
+    CoolingConfigurationProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::map<QString, std::unique_ptr<CoolingConfigurationProperty>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

@@ -11,7 +11,12 @@
 class AggregatedLightingsProperty_Proxy : public BaseProperty
 {
 public:
-    AggregatedLightingsProperty_Proxy() {}
+    AggregatedLightingsProperty_Proxy()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created Proxy" << std::endl;
+#endif
+    }
     std::map<CUEDevice, std::unique_ptr<ChannelPropertiesContainerClass>, CUEDeviceComparator> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)

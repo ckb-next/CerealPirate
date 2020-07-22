@@ -8,7 +8,12 @@
 class CUEPreset
 {
 public:
-    CUEPreset() {}
+    CUEPreset()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created CUEPreset" << std::endl;
+#endif
+    }
     QString id;
     QString name;
     std::vector<double> stages;
@@ -25,7 +30,12 @@ CEREAL_CLASS_VERSION(CUEPreset, 201)
 class PresetsProperty : public BaseProperty
 {
 public:
-    PresetsProperty() {}
+    PresetsProperty()
+    {
+#ifdef DEBUG_DEFAULT_INIT
+        std::cout << "Created PresetsProperty" << std::endl;
+#endif
+    }
     int activePresetIndex;
     bool forceIndexChange;
     std::vector<std::shared_ptr<CUEPreset>> presets;
