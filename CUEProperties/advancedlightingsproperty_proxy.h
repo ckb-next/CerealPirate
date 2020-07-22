@@ -5,15 +5,14 @@
 #include <cereal/archives/xml.hpp>
 #include <QString>
 #include "baseproperty.h"
-// FIXME: Remove this include when the unknown lighting property class is split
-#include "basiclightingsproperty_proxy.h"
+#include "channelpropertiesclass.h"
 
 class AdvancedLightingsProperty_Proxy : public BaseProperty
 {
 public:
     AdvancedLightingsProperty_Proxy() {}
     QString value;
-    std::unordered_map<bool, std::unique_ptr<UnknownLightingProperty>> properties;
+    std::unordered_map<bool, std::unique_ptr<ChannelPropertiesClass>> properties;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {
