@@ -14,6 +14,7 @@ public:
         std::cout << "Created CUEAnimationTransition" << std::endl;
 #endif
     }
+#warning "Maybe this isn't double?"
     double time;
     QString color;
     template <class Archive>

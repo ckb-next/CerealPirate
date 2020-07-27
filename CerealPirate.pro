@@ -23,6 +23,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    CUEActionEvents/actioneventbase.h \
+    CUEActionEvents/delaymacroactionevent.h \
+    CUEActionEvents/keyboardmacroactionevent.h \
+    CUEActionEvents/mousebuttonmacroactionevent.h \
+    CUEActionEvents/mousescrollmacroactionevent.h \
     CUEActions/baseaction.h \
     CUEActions/brightnessaction.h \
     CUEActions/dolbystatechangeaction.h \
@@ -30,19 +35,24 @@ HEADERS += \
     CUEActions/eqpresetswitchingaction.h \
     CUEActions/gestureaction.h \
     CUEActions/keyremapaction.h \
+    CUEActions/macroaction.h \
     CUEActions/macrorecordingaction.h \
     CUEActions/micmuteaction.h \
     CUEActions/profileswitchingaction.h \
     CUEActions/sidetonemuteaction.h \
     CUEActions/winlockaction.h \
     CUEAnimations/blinklighting.h \
+    CUEAnimations/breathelighting.h \
     CUEAnimations/colorpulselighting.h \
     CUEAnimations/colorshiftlighting.h \
+    CUEAnimations/colorwarplighting.h \
     CUEAnimations/colorwavelighting.h \
     CUEAnimations/cueanimationwithtransitions.h \
     CUEAnimations/cuecolourclass.h \
     CUEAnimations/frequencyvisualizerlighting.h \
     CUEAnimations/gradientlighting.h \
+    CUEAnimations/lightinglink.h \
+    CUEAnimations/marqueelighting.h \
     CUEAnimations/rainbowlighting.h \
     CUEAnimations/rainbowwavelighting.h \
     CUEAnimations/rainlighting.h \
@@ -52,6 +62,8 @@ HEADERS += \
     CUEAnimations/solidlighting.h \
     CUEAnimations/spiralrainbowlighting.h \
     CUEAnimations/staticlighting.h \
+    CUEAnimations/strobinglighting.h \
+    CUEAnimations/temperaturelighting.h \
     CUEAnimations/typelighting.h \
     CUEAnimations/visorlighting.h \
     CUEAnimations/wavelighting.h \
@@ -66,9 +78,14 @@ HEADERS += \
     CUECooling/coolingconfigurationstoragebasebase.h \
     CUECooling/lightingnodeconfigurationstorage.h \
     CUECooling/lightingnodecoolingconfiguration.h \
+    CUECooling/platinumcoolersconfigurationstorage.h \
+    CUECooling/platinumcoolingconfiguration.h \
     CUECooling/psucoolingconfiguration.h \
     CUECooling/psucoolingconfigurationstorage.h \
+    CUECooling/starcoolersconfigurationstorage.h \
+    CUECooling/starcoolingconfiguration.h \
     CUEProperties/actionsproperty.h \
+    CUEProperties/katardpiproperty.h \
     advancedlightinglayer.h \
     CUEProperties/advancedlightingsproperty_proxy.h \
     CUEProperties/aggregatedlightingsproperty_proxy.h \

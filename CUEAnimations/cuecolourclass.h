@@ -4,6 +4,8 @@
 #include <cereal/types/polymorphic.hpp>
 #include <cereal/archives/xml.hpp>
 
+#warning "Isn't this an std::pair...?"
+
 class CUEColourClass
 {
 public:

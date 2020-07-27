@@ -705,7 +705,7 @@
 													<ptr_wrapper>
 														<valid>1</valid>
 														<data>
-															<base> <!-- it expects cereal_class_version here instead -->
+															<base>
 																<base/>
 																<layers size="dynamic"/>
 															</base>

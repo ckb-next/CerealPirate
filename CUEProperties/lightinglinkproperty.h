@@ -5,6 +5,7 @@
 #include <QString>
 #include "baseproperty.h"
 #include "cuekeybase.h"
+#include "../CUEAnimations/lightinglink.h"
 
 class LightingLinkProperty : public BaseProperty
 {
@@ -15,7 +16,7 @@ public:
         std::cout << "Created LightingLinkProperty" << std::endl;
 #endif
     }
-    std::vector<std::shared_ptr<CUEKeyBase>> layers;
+    std::vector<std::shared_ptr<LightingLinkLayer>> layers;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

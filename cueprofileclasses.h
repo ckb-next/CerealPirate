@@ -41,6 +41,7 @@ std::map<QString, int>* devCmpMap = nullptr;
 #include "CUEProperties/xdlprofileproperty.h"
 #include "CUEProperties/coolingconfigurationproperty_proxy.h"
 #include "CUEProperties/channelpropertiescontainerclass.h"
+#include "CUEProperties/katardpiproperty.h"
 
 // Lighting-related
 #include "advancedlightinglayer.h"
@@ -65,6 +66,12 @@ std::map<QString, int>* devCmpMap = nullptr;
 #include "CUEAnimations/rainbowlighting.h"
 #include "CUEAnimations/singlecolorpulselighting.h"
 #include "CUEAnimations/singlecolorvisorlighting.h"
+#include "CUEAnimations/lightinglink.h"
+#include "CUEAnimations/strobinglighting.h"
+#include "CUEAnimations/temperaturelighting.h"
+#include "CUEAnimations/colorwarplighting.h"
+#include "CUEAnimations/marqueelighting.h"
+#include "CUEAnimations/breathelighting.h"
 
 // Actions
 #include "CUEActions/dpiaction.h"
@@ -78,6 +85,7 @@ std::map<QString, int>* devCmpMap = nullptr;
 #include "CUEActions/micmuteaction.h"
 #include "CUEActions/sidetonemuteaction.h"
 #include "CUEActions/gestureaction.h"
+#include "CUEActions/macroaction.h"
 
 // Behaviours
 #include "CUEBehaviours/directiondpibehavior.h"
@@ -93,5 +101,15 @@ std::map<QString, int>* devCmpMap = nullptr;
 #include "CUECooling/asetekcoolingconfigurationstorage.h"
 #include "CUECooling/lightingnodeconfigurationstorage.h"
 #include "CUECooling/psucoolingconfigurationstorage.h"
+#include "CUECooling/starcoolingconfiguration.h"
+#include "CUECooling/platinumcoolingconfiguration.h"
+#include "CUECooling/platinumcoolersconfigurationstorage.h"
+#include "CUECooling/starcoolersconfigurationstorage.h"
+
+// Action Events
+#include "CUEActionEvents/keyboardmacroactionevent.h"
+#include "CUEActionEvents/delaymacroactionevent.h"
+#include "CUEActionEvents/mousescrollmacroactionevent.h"
+#include "CUEActionEvents/mousebuttonmacroactionevent.h"
 
 #endif // CUEPROFILECLASSES_H

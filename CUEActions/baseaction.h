@@ -20,8 +20,7 @@ public:
     ActionExecutionHints executionHints;
     QString actionLighting;
     QString actionSoundPath;
-#warning "FIXME: find the right data type for the vector"
-    std::vector<std::unique_ptr<BaseAction>> attachedActions;
+    std::map<QString, std::weak_ptr<BaseAction>> attachedActions;
     template <class Archive>
     void serialize(Archive& ar, const std::uint32_t version)
     {

@@ -236,6 +236,76 @@ static void trimEnd(std::string& str)
         str.resize(sl);
 }
 
+
+
+// False if something went wrong
+// True if we all matched
+/*bool recurse(cereal::rapidxml::xml_node<>* starting_node, cereal::rapidxml::xml_node<>* starting_node2, int& depth, int& maxdepth)
+{
+    depth++;
+    if(maxdepth < depth)
+        maxdepth = depth;
+    for(cereal::rapidxml::xml_node<>* node = starting_node; node; node = node->next_sibling())
+    {
+        //std::cout << "Node: " << node->name() << " data: " << node->value() << std::endl;
+        cereal::rapidxml::xml_node<>* node2;
+        for(node2 = starting_node2; node2; node2 = node2->next_sibling())
+        {
+            std::cout << "Comparing " << node->name() << " and " << node2->name() << std::endl;
+            if(strcmp(node->name(), node2->name()) || strcmp(node->value(), node2->value()))
+            {
+                // It's okay to keep going if the node starts with "value"
+                if(strlen(node->name()) > 5)
+                {
+                    if(strncmp("value", node->name(), 5))
+                        continue;
+                }
+                // Also assume that cereal_class_version matches as well, but report it
+                else if(strcmp(node->name(), "cereal_class_version"))
+                {
+                    std::cout << "Assuming cereal class version matches" << std::endl;
+                }
+                else
+                    continue;
+            }
+            // Compare all the children if the above matched.
+            // This needs to be done here because there might be similar nodes with completely different children
+            if(recurse(node->first_node(), node2->first_node(), depth, maxdepth))
+                break;
+        }
+        // If node2 is NULL, we haven't found a match
+        if(!node2)
+        {
+            std::cout << "No match found for " << node->name() << " with value " << node->value() << std::endl;
+            return false;
+        }
+
+        // Compare attributes
+        // Assume they are in the same order
+        cereal::rapidxml::xml_attribute<>* attr = node->first_attribute();
+        cereal::rapidxml::xml_attribute<>* attr2 = node2->first_attribute();
+        while(attr && attr2)
+        {
+            //std::cout << "Attr: " << attr->name() << " val: " << attr->value() << std::endl;
+            if(strcmp(attr->name(), attr2->name()) || strcmp(attr->value(), attr2->value()))
+            {
+                std::cout << "Argument mismatch" << std::endl;
+                return false;
+            }
+            attr = attr->next_attribute();
+            attr2 = attr2->next_attribute();
+        }
+        // If we get down here and either of them isn't NULL, then one of them has extra attrs
+        if(attr || attr2)
+        {
+            std::cout << "One file has more attributes. Original: " << attr << " Reserialised: " << attr2 << std::endl;
+            return false;
+        }
+        std::cout << "Finished " << starting_node->name() << std::endl;
+    }
+    return true;
+}*/
+
 #include <string>
 int main(int argc, char* argv[])
 {
@@ -258,19 +328,56 @@ int main(int argc, char* argv[])
         {"PSU", 8},
     };
 
+    std::map<QString, int> cmpmap2 = {
+        {"LightingNode", 1},
+        {"Mouse", 0},
+        {"Keyboard", 2},
+        {"Headset", 3},
+        {"MouseMat", 6},
+        {"HeadsetStand", 7},
+        {"DRAM", 5},
+        {"Profile", 4},
+        {"LiquidColler", 8},
+        {"PSU", 9},
+    };
+
     std::map<QString, int> clcmpmap1 = {
         {"DEMO_COMMANDER_PRO_DEVICE", 2},
         {"DEMO_PSU_DEVICE", 1},
         {"DEMO_LIQUID_COOLER_DEVICE", 3},
     };
 
+    std::map<QString, int> clcmpmap2 = {
+        {"DEMO_COMMANDER_PRO_DEVICE", 2},
+        {"DEMO_PSU_DEVICE", 0},
+        {"DEMO_LIQUID_COOLER_DEVICE", 1},
+    };
+
+    std::map<QString, int> clcmpmap3 = {
+        {"DEMO_COMMANDER_PRO_DEVICE", 1},
+        {"vid<1b1c>pid<000c10>serial<890A0C37>index<0>", 0},
+        {"vid<1b1c>pid<001d00>serial<39ABD5C0>index<0>", 2},
+    };
+
+    std::map<QString, int> dcmpmap1 = {
+        {"StandardRgb", -1},
+        {"StandardSingleColor", 0},
+        {"ZoneRgb", 1},
+        {"RestrictedWireless", 2},
+        {"DramSingleColor", 3},
+        {"Undefined", 5},
+        {"DramRgb", 4},
+    };
+
     std::vector<XMLTests> files = {
         {"tests/test1.cueprofile", nullptr, nullptr, nullptr},
         {"tests/test2.cueprofile", &cmpmap1, nullptr, &clcmpmap1},
-        {"tests/test3.cueprofile", nullptr, nullptr, &clcmpmap1}
+        {"tests/test3.cueprofile", nullptr, nullptr, &clcmpmap1},
+        {"tests/test4.cueprofile", nullptr, nullptr, &clcmpmap1},
+        {"tests/test5.cueprofile", nullptr, nullptr, &clcmpmap2},
     };
 
-    if(argc == 2)
+    if(argc > 1)
     {
         if(!strcmp(argv[1], "--help"))
         {
@@ -278,7 +385,11 @@ int main(int argc, char* argv[])
             return 0;
         }
         else
-            files = {{argv[1], nullptr, nullptr, nullptr}};
+        {
+            files.clear();
+            for(int i = 1; i < argc; i++)
+                files.push_back({argv[i], nullptr, nullptr, nullptr});
+        }
     }
     for(const XMLTests& test : files)
     {
@@ -319,21 +430,23 @@ int main(int argc, char* argv[])
         }
         catch(const cereal::Exception& e)
         {
-            std::cout << "Exception thrown while testing file " << test.file << std::endl << "what(): " << e.what() << std::endl;
+            std::cout << "FAIL" << std::endl << "Exception thrown while deserialising" << std::endl << "what(): " << e.what() << std::endl;
             ret = 1;
+            continue;
         }
 
         setlocale(LC_NUMERIC, newLocale.toUtf8());
 
         // Read back and compare
-        is.seekg(0, is.beg);
+        is.seekg(0, std::ios::beg);
         std::ifstream is_new(outfstr);
-        std::string str1;
-        std::string str2;
+        //std::ifstream is_new("/tmp/xml1_mod.xml");
         bool fail = false;
         uint64_t lnum = 1;
-        // Compare line by line
+        std::string str1;
+        std::string str2;
 
+        // Compare line by line
         while(std::getline(is, str1) && std::getline(is_new, str2))
         {
             trimEnd(str1);
@@ -349,8 +462,44 @@ int main(int argc, char* argv[])
             lnum++;
             fail = true;
         }
+
+        // Alternative comparison.
+        // Not sure if it works properly
+       /* is.seekg(0, std::ios::end);
+        size_t size = is.tellg();
+        is.seekg(0, std::ios::beg);
+
+        char* origdta = (char*)malloc(size+1);
+        origdta[size] = '\0';
+        is.read(origdta, size);
+
+        cereal::rapidxml::xml_document<> origdoc;
+        origdoc.parse<cereal::rapidxml::parse_no_data_nodes>(origdta);
+
+        // Now the newly serialised file
+        is_new.seekg(0, std::ios::end);
+        size = is_new.tellg();
+        is_new.seekg(0, std::ios::beg);
+        char* newdta = (char*)malloc(size+1);
+        newdta[size] = '\0';
+        is_new.read(newdta, size);
+
+        cereal::rapidxml::xml_document<> newdoc;
+        newdoc.parse<cereal::rapidxml::parse_no_data_nodes>(newdta);
+
+        // Compare
+        int depth = 0;
+        int maxdepth = 0;
+        fail = !recurse(origdoc.first_node(), newdoc.first_node(), depth, maxdepth);
+        std::cout << "Maxdepth" << maxdepth << std::endl;
+
+        free(origdta);
+        free(newdta);*/
+
         if(fail)
-            std::cout << "FAIL (line " << lnum << ")" << std::endl;
+            std::cout << "FAIL"
+                      << " (" << lnum << ")"
+                      << std::endl;
         else
             std::cout << "SUCCESS" << std::endl;
         ret |= fail;
